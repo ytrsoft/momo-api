@@ -26,9 +26,15 @@ public class ToolController {
         return new ResponseEntity<>(props, HttpStatus.OK);
     }
 
-    @PostMapping("/zip")
-    public ResponseEntity<Map<String, Object>> zip(@RequestParam("zip") String zip) {
-        Map<String, Object> args = ts.parseZip(zip);
+    @PostMapping("/unzip")
+    public ResponseEntity<Map<String, Object>> unzip(@RequestParam("zip") String zip) {
+        Map<String, Object> args = ts.unzip(zip);
         return new ResponseEntity<>(args, HttpStatus.OK);
+    }
+
+    @PostMapping("/genCode")
+    public ResponseEntity<String> code(@RequestParam("zip") String zip) {
+        String code = ts.genCode(zip);
+        return new ResponseEntity<>(code, HttpStatus.OK);
     }
 }
