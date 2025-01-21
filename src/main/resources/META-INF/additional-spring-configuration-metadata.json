@@ -1,37 +1,37 @@
 {
   "properties": [
     {
-      "name": "cookie",
+      "name": "momo.cookie",
       "type": "java.lang.String",
       "description": "Description for cookie."
     },
     {
-      "name": "account",
+      "name": "momo.account",
       "type": "java.lang.String",
       "description": "Description for account."
     },
     {
-      "name": "kv",
+      "name": "momo.kv",
       "type": "java.lang.String",
       "description": "Description for kv."
     },
     {
-      "name": "uid",
+      "name": "momo.uid",
       "type": "java.lang.String",
       "description": "Description for uid."
     },
     {
-      "name": "iid",
+      "name": "momo.iid",
       "type": "java.lang.String",
       "description": "Description for iid."
     },
     {
-      "name": "key",
+      "name": "momo.key",
       "type": "java.lang.String",
       "description": "Description for key."
     },
     {
-      "name": "ua",
+      "name": "momo.ua",
       "type": "java.lang.String",
       "description": "Description for ua."
     }
