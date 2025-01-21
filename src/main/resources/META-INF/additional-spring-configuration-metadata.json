@@ -1,0 +1,38 @@
+{
+  "properties": [
+    {
+      "name": "cookie",
+      "type": "java.lang.String",
+      "description": "Description for cookie."
+    },
+    {
+      "name": "account",
+      "type": "java.lang.String",
+      "description": "Description for account."
+    },
+    {
+      "name": "kv",
+      "type": "java.lang.String",
+      "description": "Description for kv."
+    },
+    {
+      "name": "uid",
+      "type": "java.lang.String",
+      "description": "Description for uid."
+    },
+    {
+      "name": "iid",
+      "type": "java.lang.String",
+      "description": "Description for iid."
+    },
+    {
+      "name": "key",
+      "type": "java.lang.String",
+      "description": "Description for key."
+    },
+    {
+      "name": "ua",
+      "type": "java.lang.String",
+      "description": "Description for ua."
+    }
+  ] }
