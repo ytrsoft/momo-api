@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.FileOutputStream;
 import java.util.Map;
 
 @RestController
@@ -30,11 +31,5 @@ public class ToolController {
     public ResponseEntity<Map<String, Object>> unzip(@RequestParam("zip") String zip) {
         Map<String, Object> args = ts.unzip(zip);
         return new ResponseEntity<>(args, HttpStatus.OK);
-    }
-
-    @PostMapping("/genCode")
-    public ResponseEntity<String> code(@RequestParam("zip") String zip) {
-        String code = ts.genCode(zip);
-        return new ResponseEntity<>(code, HttpStatus.OK);
     }
 }

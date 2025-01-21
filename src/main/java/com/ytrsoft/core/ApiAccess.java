@@ -13,7 +13,7 @@ public class ApiAccess implements Api {
     private final ApiSecurity security;
     private final Map<String, String> headers;
 
-    private ApiAccess(String url, Props props) {
+    public ApiAccess(String url, Props props) {
         this.url = url + "?fr=" + props.getAccount();
         this.props = props;
         this.security = new ApiSecurity(props);
@@ -31,12 +31,15 @@ public class ApiAccess implements Api {
         headers.put("X-Trace-Id", Utilize.uuid());
     }
 
-    public ApiAccess withParams(JSONObject params) {
-        byte[] data = params.toString().getBytes();
+    public ApiAccess withParams(String params) {
+        JSONObject jsonObject = new JSONObject(params);
+        byte[] data = jsonObject.toString().getBytes();
         byte[] decoded = security.encode(data);
         zip = Base64.encode(decoded);
         sign = security.sign(decoded);
         loadHeader();
+        System.out.println(zip);
+        System.out.println(sign);
         return this;
     }
 
