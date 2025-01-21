@@ -1,6 +1,8 @@
 package com.ytrsoft.core;
 
 import org.json.JSONObject;
+
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,22 +33,27 @@ public class ApiAccess implements Api {
         headers.put("X-Trace-Id", Utilize.uuid());
     }
 
-    public ApiAccess withParams(String params) {
-        JSONObject jsonObject = new JSONObject(params);
-        byte[] data = jsonObject.toString().getBytes();
-        byte[] decoded = security.encode(data);
-        zip = Base64.encode(decoded);
-        sign = security.sign(decoded);
-        loadHeader();
+    public ApiAccess withParams(JSONObject params) {
+        params.put("_net_", "wifi");
+        params.put("_iid_", props.getIid());
+        params.put("_uid_", props.getUid());
+        byte[] data = params.toString().getBytes();
+        byte[] bytes = security.encode(data);
+        byte[] encoded = Arrays.copyOfRange(bytes, 7, bytes.length);
+        zip = Base64.encode(bytes);
+        sign = security.sign(encoded);
         System.out.println(zip);
         System.out.println(sign);
+        loadHeader();
         return this;
     }
 
 
     public JSONObject doRequest() {
         HttpClient client = HttpClient.getInstance()
-                .url(url).headers(headers).body(zip);
+                .url(url)
+                .headers(headers)
+                .body(zip);
         return client.build();
     }
 

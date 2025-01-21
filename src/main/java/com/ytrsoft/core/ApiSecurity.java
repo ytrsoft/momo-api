@@ -1,5 +1,7 @@
 package com.ytrsoft.core;
 
+import cn.hutool.core.util.ArrayUtil;
+
 public class ApiSecurity {
 
     private final Props props;
@@ -9,11 +11,10 @@ public class ApiSecurity {
     }
 
     public String sign(byte[] encoded) {
+        byte[] ua = props.getUa().getBytes();
         byte[] key = props.getKey().getBytes();
-        ByteStream bs = new ByteStream();
-        bs.put(props.getUa().getBytes());
-        bs.put(encoded);
-        byte[] sign = Coded.sign(bs.get(), key);
+        byte[] data = ArrayUtil.addAll(ua, encoded);
+        byte[] sign = Coded.sign(data, key);
         return Base64.encode(sign);
     }
 

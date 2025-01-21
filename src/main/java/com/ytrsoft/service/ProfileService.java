@@ -19,10 +19,16 @@ public class ProfileService {
     }
 
     public Map<String, Object> query(String id) {
-        String url = "https://api.immomo.com/v1/user/nice/check";
-        String args = "{\"myprofile_source\":\"self\",\"signcount\":\"0\",\"_ab_test_\":\"nearbypeopleliveexp-kmjyjy_blank;location-spxwuo_blank;aisayhi-bmhtje_blank;test-rsxyxo_blank;morenew-wkhqld_A;active-wklfmo_blank\",\"_iid\":\"07c3dd68e2a1783adac3e0ca3fd862ad\",\"source_info\":\"{\\\"type\\\":\\\"-1\\\",\\\"extra\\\":\\\"com.immomo.momo.fullsearch.activity.FullSearchActivity\\\",\\\"stack\\\":\\\"[{\\\\\\\"name\\\\\\\":\\\\\\\"SessionListInnerFragment\\\\\\\"},{\\\\\\\"name\\\\\\\":\\\\\\\"FullSearchActivity\\\\\\\"},{\\\\\\\"data\\\\\\\":\\\\\\\"{\\\\\\\\\\\\\\\"userid\\\\\\\\\\\\\\\":\\\\\\\\\\\\\\\"994491371\\\\\\\\\\\\\\\"}\\\\\\\",\\\\\\\"name\\\\\\\":\\\\\\\"PersonalProfileActivityK\\\\\\\"}]\\\"}\",\"profile_source\":\"profile\",\"newProfileExp\":\"B\",\"remoteid\":\"994491371\",\"_net_\":\"wifi\",\"_uid_\":\"a3931e93ff9cb0bc16e38cf3a14aa599\"}";
+        String url = ApiAccess.PROFILE;
+        JSONObject params = new JSONObject();
+        params.put("myprofile_source", "self");
+        params.put("signcount", "0");
+        params.put("profile_source", "profile");
+        params.put("newProfileExp", "B");
+        params.put("source_info", "{\"type\":\"-1\",\"extra\":\"com.immomo.momo.fullsearch.activity.FullSearchActivity\",\"stack\":\"[{\\\"name\\\":\\\"SessionListInnerFragment\\\"},{\\\"name\\\":\\\"FullSearchActivity\\\"},{\\\"data\\\":\\\"{\\\\\\\"userid\\\\\\\":\\\\\\\"1085547122\\\\\\\"}\\\",\\\"name\\\":\\\"PersonalProfileActivityK\\\"}]\"}");
+        params.put("remoteid", "1085547122");
         ApiAccess access = new ApiAccess(url, props);
-        JSONObject object = access.withParams(args).doRequest();
+        JSONObject object = access.withParams(params).doRequest();
         return object.toMap();
     }
 
