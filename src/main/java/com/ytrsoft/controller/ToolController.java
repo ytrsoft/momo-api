@@ -8,17 +8,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/props")
-public class PropsController {
+@RequestMapping("/tool")
+public class ToolController {
 
     private final Props props;
 
-    public PropsController(Props props) {
+    public ToolController(Props props) {
         this.props = props;
     }
 
-    @GetMapping("/read")
-    public ResponseEntity<Props> read() {
+    @GetMapping("/props")
+    public ResponseEntity<Props> props() {
         return new ResponseEntity<>(props, HttpStatus.OK);
     }
 }
