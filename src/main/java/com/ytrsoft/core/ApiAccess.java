@@ -43,6 +43,7 @@ public class ApiAccess implements Api {
         headers.put("X-KV", props.getKv());
         headers.put("Accept-Language", "zh-CN");
         headers.put("X-Trace-Id", Utilize.uuid());
+        headers.put("User-Agent", props.getUa());
     }
 
     private void initRequest() {

@@ -1,5 +1,8 @@
 package com.ytrsoft.core;
 
+import cn.hutool.core.net.URLEncodeUtil;
+import cn.hutool.core.net.URLEncoder;
+import cn.hutool.core.util.URLUtil;
 import okhttp3.*;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -12,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 public final class HttpClient {
 
     private String url;
-    private FormBody formBody;
+    private FormBody body;
     private Map<String, String> headers;
     private final OkHttpClient client;
 
@@ -46,7 +49,7 @@ public final class HttpClient {
     }
 
     public HttpClient body(String zip) {
-        formBody = new FormBody.Builder()
+        body = new FormBody.Builder()
                 .add("mzip", zip)
                 .build();
         return this;
@@ -61,7 +64,7 @@ public final class HttpClient {
         Request.Builder rb = new Request.Builder();
         rb.url(url);
         rb.headers(Headers.of(headers));
-        rb.post(formBody);
+        rb.post(body);
         return rb.build();
     }
 
