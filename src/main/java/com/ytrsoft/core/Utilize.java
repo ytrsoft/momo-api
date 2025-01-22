@@ -11,4 +11,5 @@ public class Utilize {
     public static String uuid() {
         return UUID.randomUUID().toString().toUpperCase();
     }
+
 }
