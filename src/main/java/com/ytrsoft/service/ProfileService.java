@@ -17,17 +17,10 @@ public class ProfileService {
     }
 
     public Map<String, Object> query() {
-        String url = ApiAccess.PROFILE;
-        JSONObject params = new JSONObject();
-        params.put("myprofile_source", "self");
-        params.put("signcount", "0");
-        params.put("profile_source", "profile");
-        params.put("newProfileExp", "B");
-        params.put("source_info", "{\"type\":\"-1\",\"extra\":\"com.immomo.momo.fullsearch.activity.FullSearchActivity\",\"stack\":\"[{\\\"name\\\":\\\"SessionListInnerFragment\\\"},{\\\"name\\\":\\\"FullSearchActivity\\\"},{\\\"data\\\":\\\"{\\\\\\\"userid\\\\\\\":\\\\\\\"1085547122\\\\\\\"}\\\",\\\"name\\\":\\\"PersonalProfileActivityK\\\"}]\"}");
-        params.put("remoteid", "1085547122");
-        ApiAccess access = new ApiAccess(url, props);
-        JSONObject object = access.withParams(params).doRequest();
-        return object.toMap();
+        ApiAccess access = new ApiAccess(ApiAccess.PROFILE, props);
+        access.put("remoteid", "994491371");
+        JSONObject response = access.doRequest();
+        return response.toMap();
     }
 
 

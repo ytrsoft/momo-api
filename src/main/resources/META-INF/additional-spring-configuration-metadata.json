@@ -34,5 +34,15 @@
       "name": "momo.ua",
       "type": "java.lang.String",
       "description": "Description for ua."
+    },
+    {
+      "name": "momo.test",
+      "type": "java.lang.String",
+      "description": "Description for momo.test."
+    },
+    {
+      "name": "momo.net",
+      "type": "java.lang.String",
+      "description": "Description for momo.net."
     }
   ] }

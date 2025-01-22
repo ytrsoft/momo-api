@@ -20,6 +20,7 @@ public final class HttpClient {
 
     private static final Logger logger = LoggerFactory.getLogger(HttpClient.class);
 
+
     private HttpClient() {
         OkHttpClient.Builder builder = new OkHttpClient.Builder()
                 .connectTimeout(10, TimeUnit.SECONDS)

@@ -14,6 +14,8 @@ public class Props {
     private String cookie;
     private String key;
     private String ua;
+    private String net;
+    private String test;
 
     public String getKv() {
         return kv;
@@ -69,5 +71,21 @@ public class Props {
 
     public void setUa(String ua) {
         this.ua = ua;
+    }
+
+    public String getNet() {
+        return net;
+    }
+
+    public void setNet(String net) {
+        this.net = net;
+    }
+
+    public String getTest() {
+        return test;
+    }
+
+    public void setTest(String test) {
+        this.test = test;
     }
 }

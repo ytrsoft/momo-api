@@ -1,15 +1,10 @@
 package com.ytrsoft.core;
 
 import org.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.HashMap;
 import java.util.Map;
 
 public class ApiAccess implements Api {
-
-    private static final Logger logger = LoggerFactory.getLogger(ApiAccess.class);
 
     private final String url;
     private String zip;
@@ -17,12 +12,26 @@ public class ApiAccess implements Api {
     private final Props props;
     private final ApiSecurity security;
     private final Map<String, String> headers;
+    private final JSONObject params;
 
     public ApiAccess(String url, Props props) {
         this.url = url + "?fr=" + props.getAccount();
         this.props = props;
         this.security = new ApiSecurity(props);
         this.headers = new HashMap<>();
+        params = new JSONObject();
+    }
+
+    public ApiAccess put(String key, Object value) {
+        this.params.put(key, value);
+        return this;
+    }
+
+    private void setDefaultParams() {
+        params.put("_ab_test_", props.getTest());
+        params.put("_net_", props.getNet());
+        params.put("_iid", props.getIid());
+        params.put("_uid_", props.getUid());
     }
 
     private void setHeaders() {
@@ -36,18 +45,18 @@ public class ApiAccess implements Api {
         headers.put("X-Trace-Id", Utilize.uuid());
     }
 
-    public ApiAccess withParams(JSONObject params) {
+    private void initRequest() {
+        setDefaultParams();
         byte[] data = params.toString().getBytes();
         byte[] encoded = security.encode(data);
         zip = Base64.encode(encoded);
-        logger.info("mzip --- {}", zip);
+        System.out.println(zip);
         sign = security.sign(encoded);
-        logger.info("x-sign --- {}", sign);
         setHeaders();
-        return this;
     }
 
     public JSONObject doRequest() {
+        initRequest();
         return HttpClient.getInstance()
                 .url(url)
                 .headers(headers)
