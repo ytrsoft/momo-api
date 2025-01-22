@@ -17,7 +17,7 @@ public class ProfileController {
         this.ps = ps;
     }
 
-    @GetMapping("/")
+    @GetMapping("/query")
     public ResponseEntity<Map<String, Object>> query() {
         Map<String, Object> checked = ps.query();
         return new ResponseEntity<>(checked, HttpStatus.OK);
