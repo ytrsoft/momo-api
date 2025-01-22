@@ -18,9 +18,9 @@ public class ProfileController {
         this.ps = ps;
     }
 
-    @GetMapping("/query")
-    public ResponseEntity<Map<String, Object>> query() {
-        Map<String, Object> checked = ps.query();
+    @GetMapping("/{id}")
+    public ResponseEntity<Map<String, Object>> query(@PathVariable String id) {
+        Map<String, Object> checked = ps.query(id);
         return new ResponseEntity<>(checked, HttpStatus.OK);
     }
 

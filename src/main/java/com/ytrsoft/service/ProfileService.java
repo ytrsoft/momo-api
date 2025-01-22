@@ -16,12 +16,11 @@ public class ProfileService {
         this.props = props;
     }
 
-    public Map<String, Object> query() {
+    public Map<String, Object> query(String id) {
         ApiAccess access = new ApiAccess(ApiAccess.PROFILE, props);
-        access.put("remoteid", "994491371");
+        access.put("remoteid", id);
         JSONObject response = access.doRequest();
         return response.toMap();
     }
-
 
 }

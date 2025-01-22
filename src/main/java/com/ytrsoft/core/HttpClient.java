@@ -1,10 +1,6 @@
 package com.ytrsoft.core;
 
-import cn.hutool.core.net.URLEncodeUtil;
-import cn.hutool.core.net.URLEncoder;
-import cn.hutool.core.util.URLUtil;
 import okhttp3.*;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -69,18 +65,17 @@ public final class HttpClient {
     }
 
 
-    public JSONObject build() {
-        JSONObject jsonObject = new JSONObject();
+    public byte[] build() {
         Request request = buildRequest();
         try {
             Response response = client.newCall(request).execute();
-            ResponseBody responseBody = response.body();
+          ResponseBody responseBody = response.body();
             if (responseBody != null) {
-                jsonObject = new JSONObject(responseBody.string());
+                return responseBody.bytes();
             }
         } catch (IOException e) {
             logger.error("网络请求失败: {}", e.getMessage(), e);
         }
-        return jsonObject;
+        return new byte[0];
     }
 }
