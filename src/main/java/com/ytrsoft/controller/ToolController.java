@@ -26,8 +26,10 @@ public class ToolController {
     }
 
     @PostMapping("/unzip")
-    public ResponseEntity<Map<String, Object>> unzip(@RequestParam("zip") String zip) {
-        Map<String, Object> args = ts.unzip(zip);
+    public ResponseEntity<Map<String, Object>> unzip(
+            @RequestParam("zip") String zip,
+            @RequestParam(value = "mode", defaultValue = "0") Integer mode) {
+        Map<String, Object> args = ts.unzip(zip, mode);
         return new ResponseEntity<>(args, HttpStatus.OK);
     }
 }

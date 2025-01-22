@@ -1,11 +1,15 @@
 package com.ytrsoft.core;
 
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class ApiAccess implements Api {
+
+    private static final Logger logger = LoggerFactory.getLogger(ApiAccess.class);
 
     private final String url;
     private String zip;
@@ -36,11 +40,12 @@ public class ApiAccess implements Api {
         byte[] data = params.toString().getBytes();
         byte[] encoded = security.encode(data);
         zip = Base64.encode(encoded);
+        logger.info("mzip --- {}", zip);
         sign = security.sign(encoded);
+        logger.info("x-sign --- {}", sign);
         setHeaders();
         return this;
     }
-
 
     public JSONObject doRequest() {
         return HttpClient.getInstance()
@@ -49,7 +54,5 @@ public class ApiAccess implements Api {
                 .body(zip)
                 .build();
     }
-
-
 
 }
