@@ -18,7 +18,7 @@ public class ProfileService {
         this.props = props;
     }
 
-    public Map<String, Object> query(String id) {
+    public Map<String, Object> query() {
         String url = ApiAccess.PROFILE;
         JSONObject params = new JSONObject();
         params.put("myprofile_source", "self");

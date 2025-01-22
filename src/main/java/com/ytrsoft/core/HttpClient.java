@@ -6,21 +6,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public final class HttpClient {
 
-    private static final Logger logger = LoggerFactory.getLogger(HttpClient.class);
-    private static final MediaType FORM_URLENCODED = MediaType.parse("application/x-www-form-urlencoded");
+    private String url;
+    private FormBody formBody;
+    private Map<String, String> headers;
+    private final OkHttpClient client;
 
     private static volatile HttpClient instance;
-    private final OkHttpClient client;
-    private FormBody formBody;
-    private String url;
-    private Map<String, String> headers;
+
+    private static final Logger logger = LoggerFactory.getLogger(HttpClient.class);
 
     private HttpClient() {
         OkHttpClient.Builder builder = new OkHttpClient.Builder()
@@ -58,21 +56,23 @@ public final class HttpClient {
         return this;
     }
 
+    private Request buildRequest() {
+        Request.Builder rb = new Request.Builder();
+        rb.url(url);
+        rb.headers(Headers.of(headers));
+        rb.post(formBody);
+        return rb.build();
+    }
+
+
     public JSONObject build() {
-
         JSONObject jsonObject = new JSONObject();
-
-        Request.Builder requestBuilder = new Request.Builder()
-                .url(url)
-                .headers(Headers.of(headers))
-                .post(formBody);
-
-        Request request = requestBuilder.build();
-
-        try (Response response = client.newCall(request).execute()) {
-            ResponseBody body = response.body();
-            if (body != null) {
-                jsonObject = new JSONObject(body.string());
+        Request request = buildRequest();
+        try {
+            Response response = client.newCall(request).execute();
+            ResponseBody responseBody = response.body();
+            if (responseBody != null) {
+                jsonObject = new JSONObject(responseBody.string());
             }
         } catch (IOException e) {
             logger.error("网络请求失败: {}", e.getMessage(), e);
