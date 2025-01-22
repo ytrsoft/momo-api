@@ -9,13 +9,9 @@ public class Props {
 
     private String kv;
     private String account;
-    private String uid;
-    private String iid;
     private String cookie;
     private String key;
     private String ua;
-    private String net;
-    private String test;
 
     public String getKv() {
         return kv;
@@ -31,22 +27,6 @@ public class Props {
 
     public void setAccount(String account) {
         this.account = account;
-    }
-
-    public String getUid() {
-        return uid;
-    }
-
-    public void setUid(String uid) {
-        this.uid = uid;
-    }
-
-    public String getIid() {
-        return iid;
-    }
-
-    public void setIid(String iid) {
-        this.iid = iid;
     }
 
     public String getCookie() {
@@ -71,21 +51,5 @@ public class Props {
 
     public void setUa(String ua) {
         this.ua = ua;
-    }
-
-    public String getNet() {
-        return net;
-    }
-
-    public void setNet(String net) {
-        this.net = net;
-    }
-
-    public String getTest() {
-        return test;
-    }
-
-    public void setTest(String test) {
-        this.test = test;
     }
 }

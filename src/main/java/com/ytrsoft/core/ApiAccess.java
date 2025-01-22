@@ -28,13 +28,6 @@ public class ApiAccess implements Api {
         return this;
     }
 
-    private void setDefaultParams() {
-        params.put("_ab_test_", props.getTest());
-        params.put("_net_", props.getNet());
-        params.put("_iid", props.getIid());
-        params.put("_uid_", props.getUid());
-    }
-
     private void setHeaders() {
         headers.put("cookie", props.getCookie());
         headers.put("X-SIGN", sign);
@@ -48,7 +41,6 @@ public class ApiAccess implements Api {
     }
 
     private void initRequest() {
-        setDefaultParams();
         byte[] data = params.toString().getBytes();
         byte[] encoded = security.encode(data);
         zip = Base64.encode(encoded);
