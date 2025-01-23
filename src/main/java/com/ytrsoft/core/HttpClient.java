@@ -69,7 +69,7 @@ public final class HttpClient {
         Request request = buildRequest();
         try {
             Response response = client.newCall(request).execute();
-          ResponseBody responseBody = response.body();
+            ResponseBody responseBody = response.body();
             if (responseBody != null) {
                 return responseBody.bytes();
             }

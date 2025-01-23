@@ -7,15 +7,14 @@ import com.ytrsoft.core.Props;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.Map;
 
 @Service
-public class ToolService {
+public class ParseService {
 
     private final Props props;
 
-    public ToolService(Props props) {
+    public ParseService(Props props) {
         this.props = props;
     }
 

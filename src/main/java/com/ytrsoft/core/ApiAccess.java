@@ -2,6 +2,7 @@ package com.ytrsoft.core;
 
 import org.json.JSONObject;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -55,9 +56,17 @@ public class ApiAccess implements Api {
                 .headers(headers)
                 .body(zip)
                 .build();
-        byte[] decoded = Coded.decode(response, props.getKey().getBytes());
+        //byte[] decoded = Coded.decode(response, props.getKey().getBytes());
+        String ck = "AgOxElKWAB9J85QSqr8QYp9sf8UMmyA7aH5iHhAMonyiRQrxfP2dX8h1IrU5NtH1w+X6tXjSGbzsVgpzY1+V5Kl/J1l64nM=";
+        byte[] decode = Base64.decode(ck.getBytes());
+        System.out.println(Arrays.toString(decode));
+        byte[] decoded = Coded.decode(decode, props.getKey().getBytes());
+        System.out.println(new String(decoded));
+        System.out.println(Arrays.toString(response));
         String body = Brotli.decompress(decoded);
-        return JSON.deep(body);
+        System.out.println(body);
+//        return JSON.deep(body);
+        return new JSONObject();
     }
 
 }

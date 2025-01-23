@@ -25,6 +25,21 @@ public final class Coded {
         throw new UnsupportedOperationException();
     }
 
+    public static String md5(String str) {
+        try {
+            MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+            byte[] digest = messageDigest.digest(str.getBytes());
+            StringBuilder stringBuilder = new StringBuilder();
+            for (byte b : digest) {
+                stringBuilder.append(String.format("%02x", b));
+            }
+            return stringBuilder.toString();
+        } catch (NoSuchAlgorithmException e) {
+            logger.error("MD5失败: {}", e.getMessage());
+            return str;
+        }
+    }
+
     public static byte[] sign(byte[] data, byte[] key) {
         try {
             MessageDigest sha1 = MessageDigest.getInstance("SHA-1");

@@ -1,6 +1,5 @@
 package com.ytrsoft.controller;
 
-import com.ytrsoft.core.HttpClient;
 import com.ytrsoft.core.Image;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
