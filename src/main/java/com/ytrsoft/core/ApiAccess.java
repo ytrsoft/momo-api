@@ -52,22 +52,11 @@ public class ApiAccess implements Api {
     }
 
     public JSONObject doRequest() {
-        return doRequest(null);
-    }
-
-    public JSONObject doRequest(JSONObject body) {
-        bodyArgs.put("mzip", zip);
         initRequest();
-        if (body != null) {
-            Map<String, Object> jMap = body.toMap();
-            jMap.forEach( (k, v) -> {
-                bodyArgs.put(k, v.toString());
-            });
-        }
         byte[] response = HttpClient.getInstance()
                 .url(url)
                 .headers(headers)
-                .body(bodyArgs)
+                .body(zip)
                 .build();
         byte[] decoded = Coded.decode(response, props.getKey().getBytes());
         String decompressed = Brotli.decompress(decoded);

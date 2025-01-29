@@ -44,10 +44,10 @@ public final class HttpClient {
         return this;
     }
 
-    public HttpClient body(Map<String, String> params) {
-        FormBody.Builder fb = new FormBody.Builder();
-        params.forEach(fb::add);
-        body = fb.build();
+    public HttpClient body(String zip) {
+        body = new FormBody.Builder()
+                .add("mzip", zip)
+                .build();
         return this;
     }
 
