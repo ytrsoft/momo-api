@@ -8,5 +8,5 @@ public interface Api {
     String PROFILE = BASE_URL + "/v3/user/profile/info";
     String NEARLY = BASE_URL + "/v2/nearby/people/lists";
     String PUBLISH = BASE_URL + "/api/feed/v2/comment/publish";
-    String LOGIN = BASE_URL + "/api/v2/login?fr=979025201";
+    String LOGIN = BASE_URL + "/api/v2/login";
 }

@@ -14,6 +14,7 @@ public class ApiAccess implements Api {
     private final Props props;
     private final ApiSecurity security;
     private final Map<String, String> headers;
+    private Map<String, String> bodyArgs;
     private final JSONObject params;
 
     public ApiAccess(String url, Props props) {
@@ -22,6 +23,7 @@ public class ApiAccess implements Api {
         this.security = new ApiSecurity(props);
         this.headers = new HashMap<>();
         params = new JSONObject();
+        bodyArgs = new HashMap<>();
     }
 
     public ApiAccess put(String key, Object value) {
@@ -50,23 +52,26 @@ public class ApiAccess implements Api {
     }
 
     public JSONObject doRequest() {
+        return doRequest(null);
+    }
+
+    public JSONObject doRequest(JSONObject body) {
+        bodyArgs.put("mzip", zip);
         initRequest();
+        if (body != null) {
+            Map<String, Object> jMap = body.toMap();
+            jMap.forEach( (k, v) -> {
+                bodyArgs.put(k, v.toString());
+            });
+        }
         byte[] response = HttpClient.getInstance()
                 .url(url)
                 .headers(headers)
-                .body(zip)
+                .body(bodyArgs)
                 .build();
-        //byte[] decoded = Coded.decode(response, props.getKey().getBytes());
-        String ck = "AgOxElKWAB9J85QSqr8QYp9sf8UMmyA7aH5iHhAMonyiRQrxfP2dX8h1IrU5NtH1w+X6tXjSGbzsVgpzY1+V5Kl/J1l64nM=";
-        byte[] decode = Base64.decode(ck.getBytes());
-        System.out.println(Arrays.toString(decode));
-        byte[] decoded = Coded.decode(decode, props.getKey().getBytes());
-        System.out.println(new String(decoded));
-        System.out.println(Arrays.toString(response));
-        String body = Brotli.decompress(decoded);
-        System.out.println(body);
-//        return JSON.deep(body);
-        return new JSONObject();
+        byte[] decoded = Coded.decode(response, props.getKey().getBytes());
+        String decompressed = Brotli.decompress(decoded);
+        return new JSONObject(decompressed);
     }
 
 }

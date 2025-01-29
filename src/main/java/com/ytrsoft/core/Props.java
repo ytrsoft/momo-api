@@ -7,27 +7,14 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "momo")
 public class Props {
 
-    private String kv;
+    private String ua;
     private String account;
     private String cookie;
-    private String key;
-    private String ua;
-    private String ck;
 
-    public String getCk() {
-        return ck;
-    }
+    private final CheckOS checkOS;
 
-    public void setCk(String ck) {
-        this.ck = ck;
-    }
-
-    public String getKv() {
-        return kv;
-    }
-
-    public void setKv(String kv) {
-        this.kv = kv;
+    public Props() {
+        this.checkOS = new CheckOS();
     }
 
     public String getAccount() {
@@ -46,19 +33,19 @@ public class Props {
         this.cookie = cookie;
     }
 
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
-    }
-
     public String getUa() {
         return ua;
     }
 
     public void setUa(String ua) {
         this.ua = ua;
+    }
+
+    public String getKey() {
+        return this.checkOS.getKey();
+    }
+
+    public String getKv() {
+        return this.checkOS.getKv();
     }
 }
