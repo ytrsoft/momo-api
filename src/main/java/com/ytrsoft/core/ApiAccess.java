@@ -64,7 +64,7 @@ public class ApiAccess implements Api {
                 .build();
         byte[] decoded = Coded.decode(response, props.getKey().getBytes());
         String decompressed = Brotli.decompress(decoded);
-        return new JSONObject(decompressed);
+        return JSON.deep(decompressed);
     }
 
 }
