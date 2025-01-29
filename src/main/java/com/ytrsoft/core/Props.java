@@ -12,6 +12,15 @@ public class Props {
     private String cookie;
     private String key;
     private String ua;
+    private String ck;
+
+    public String getCk() {
+        return ck;
+    }
+
+    public void setCk(String ck) {
+        this.ck = ck;
+    }
 
     public String getKv() {
         return kv;

@@ -44,5 +44,10 @@
       "name": "momo.net",
       "type": "java.lang.String",
       "description": "Description for momo.net."
+    },
+    {
+      "name": "momo.ck",
+      "type": "java.lang.String",
+      "description": "Description for momo.ck."
     }
   ] }
