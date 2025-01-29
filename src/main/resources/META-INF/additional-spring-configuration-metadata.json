@@ -59,5 +59,10 @@
       "name": "momo.login_ck",
       "type": "java.lang.String",
       "description": "Description for momo.login_ck."
+    },
+    {
+      "name": "momo.code_version",
+      "type": "java.lang.String",
+      "description": "Description for momo.code_version."
     }
   ] }

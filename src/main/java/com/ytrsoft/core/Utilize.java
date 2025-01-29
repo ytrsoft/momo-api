@@ -19,15 +19,11 @@ public class Utilize {
         return FileUtil.readUtf8String(resource.getFile());
     }
 
-    public static class CheckOS {
-
-
-
-
-        public CheckOS() {
-
+    public static String getMapId() {
+        long currentTimeMillis = System.currentTimeMillis() % 1000000;
+        if (currentTimeMillis < 100000) {
+            currentTimeMillis += 100000;
         }
-
-
+        return currentTimeMillis + "" + (((int) (Math.random() * 9000.0d)) + 1000);
     }
 }

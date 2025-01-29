@@ -10,14 +10,12 @@ public class Props {
     private String ua;
     private String account;
     private String cookie;
-    private String login_sk;
-    private String login_ck;
-
 
     private final CheckOS checkOS;
 
 
     public Props() {
+        this.mapId = Utilize.getMapId();
         this.checkOS = new CheckOS();
     }
 
@@ -51,22 +49,6 @@ public class Props {
 
     public String getKv() {
         return this.checkOS.getKv();
-    }
-
-    public void setLoginCk(String login_ck) {
-        this.login_ck = login_ck;
-    }
-
-    public String getLoginCk() {
-        return login_ck;
-    }
-
-    public void setLoginSk(String login_sk) {
-        this.login_sk = login_sk;
-    }
-
-    public String getLoginSk() {
-        return login_sk;
     }
 
 }
