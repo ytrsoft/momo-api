@@ -2,19 +2,17 @@ package com.ytrsoft.core;
 
 import org.json.JSONObject;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 public class ApiAccess implements Api {
 
     private final String url;
-    private String zip;
     private String sign;
     private final Props props;
     private final ApiSecurity security;
     private final Map<String, String> headers;
-    private Map<String, String> bodyArgs;
+    private final Map<String, String> body;
     private final JSONObject params;
 
     public ApiAccess(String url, Props props) {
@@ -23,11 +21,16 @@ public class ApiAccess implements Api {
         this.security = new ApiSecurity(props);
         this.headers = new HashMap<>();
         params = new JSONObject();
-        bodyArgs = new HashMap<>();
+        body = new HashMap<>();
     }
 
-    public ApiAccess put(String key, Object value) {
+    public ApiAccess params(String key, Object value) {
         this.params.put(key, value);
+        return this;
+    }
+
+    public ApiAccess body(String key, String value) {
+        this.body.put(key, value);
         return this;
     }
 
@@ -46,7 +49,8 @@ public class ApiAccess implements Api {
     private void initRequest() {
         byte[] data = params.toString().getBytes();
         byte[] encoded = security.encode(data);
-        zip = Base64.encode(encoded);
+        String zip = Base64.encode(encoded);
+        body.put("mzip", zip);
         sign = security.sign(encoded);
         setHeaders();
     }
@@ -56,7 +60,7 @@ public class ApiAccess implements Api {
         byte[] response = HttpClient.getInstance()
                 .url(url)
                 .headers(headers)
-                .body(zip)
+                .body(body)
                 .build();
         byte[] decoded = Coded.decode(response, props.getKey().getBytes());
         String decompressed = Brotli.decompress(decoded);

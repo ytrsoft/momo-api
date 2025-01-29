@@ -44,10 +44,10 @@ public final class HttpClient {
         return this;
     }
 
-    public HttpClient body(String zip) {
-        body = new FormBody.Builder()
-                .add("mzip", zip)
-                .build();
+    public HttpClient body(Map<String, String> args) {
+        FormBody.Builder builder = new FormBody.Builder();
+        args.forEach(builder::add);
+        body = builder.build();
         return this;
     }
 

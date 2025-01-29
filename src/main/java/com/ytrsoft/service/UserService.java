@@ -8,17 +8,16 @@ import org.springframework.stereotype.Service;
 import java.util.Map;
 
 @Service
-public class ProfileService {
+public class UserService {
 
     private final Props props;
 
-    public ProfileService(Props props) {
+    public UserService(Props props) {
         this.props = props;
     }
 
-    public Map<String, Object> query(String id) {
+    public Map<String, Object> login() {
         ApiAccess access = new ApiAccess(ApiAccess.PROFILE, props);
-        access.params("remoteid", id);
         JSONObject response = access.doRequest();
         return response.toMap();
     }
