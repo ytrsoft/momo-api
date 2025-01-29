@@ -15,7 +15,6 @@ public class Props {
 
 
     public Props() {
-        this.mapId = Utilize.getMapId();
         this.checkOS = new CheckOS();
     }
 
