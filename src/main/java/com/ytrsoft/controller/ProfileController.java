@@ -22,5 +22,4 @@ public class ProfileController {
         Map<String, Object> checked = ps.query(id);
         return new ResponseEntity<>(checked, HttpStatus.OK);
     }
-
 }
