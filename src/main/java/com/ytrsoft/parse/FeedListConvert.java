@@ -5,19 +5,23 @@ import org.json.JSONObject;
 
 public abstract class FeedListConvert extends DefaultListConvert  {
 
+    @Override
+    protected JSONArray getList(JSONObject input) {
+        return input.optJSONObject("data").optJSONArray("feeds");
+    }
+
     protected JSONObject processItem(JSONObject object) {
         if (object == null) return null;
 
         JSONObject item = new JSONObject();
         JSONObject source = object.optJSONObject("source");
-        JSONObject logmap = object.optJSONObject("logmap");
-        item.put("lng", logmap.optString("lng"));
-        item.put("lat", logmap.optString("lat"));
-
-        if (source == null) return null;
-
-        addContentData(source, item);
-
+        if (source != null) {
+            JSONObject map = object.optJSONObject("logmap");
+            item.put("lng", map.optString("lng"));
+            item.put("lat", map.optString("lat"));
+            item.put("id", source.optString("id"));
+            addContentData(source, item);
+        }
         return item;
     }
 
@@ -30,8 +34,8 @@ public abstract class FeedListConvert extends DefaultListConvert  {
                 if (!pics.isEmpty()) {
                     item.put("images", pics);
                 }
-                item.put("id", contentData.optString("id"));
                 item.put("distance", contentData.optInt("distance"));
+                item.put("like", contentData.optInt("likeCount"));
                 item.put("createTime", contentData.optInt("createTime"));
                 addSiteInfo(contentData, item);
                 addVideo(contentData, item);
@@ -53,7 +57,7 @@ public abstract class FeedListConvert extends DefaultListConvert  {
         if (source.has("basicInfo")) {
             JSONObject basicInfo = source.optJSONObject("basicInfo");
             if (basicInfo != null) {
-                item.put("id", basicInfo.optString("owner"));
+                item.put("owner", basicInfo.optString("owner"));
                 item.put("name", basicInfo.optString("name"));
                 item.put("age", basicInfo.optInt("age"));
                 item.put("sex", convertSex(basicInfo.optString("sex")));
@@ -64,8 +68,10 @@ public abstract class FeedListConvert extends DefaultListConvert  {
     private void addVideo(JSONObject source, JSONObject item) {
         if (source.has("microvideo")) {
             JSONObject microvideo = source.optJSONObject("microvideo");
-            String id = microvideo.optJSONObject("video").getString("guid");
-            item.put("video", id);
+            JSONObject video = microvideo.optJSONObject("video");
+            if (video.has("guid")) {
+                item.put("video", video.optString("guid"));
+            }
         }
     }
 

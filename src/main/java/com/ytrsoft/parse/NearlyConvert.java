@@ -24,6 +24,11 @@ public class NearlyConvert extends DefaultListConvert {
         return item;
     }
 
+    @Override
+    protected JSONArray getList(JSONObject input) {
+        return input.optJSONObject("data").optJSONArray("lists");
+    }
+
     private void addBasicInfo(JSONObject source, JSONObject item) {
         item.put("age", source.optInt("age"));
         item.put("id", source.getString("momoid"));
