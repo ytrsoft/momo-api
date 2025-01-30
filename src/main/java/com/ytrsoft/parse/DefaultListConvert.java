@@ -12,8 +12,7 @@ public abstract class DefaultListConvert implements ListConvert  {
     @Override
     public List<Object> convert(JSONObject input) {
         JSONArray result = new JSONArray();
-        JSONArray list = input.optJSONObject("data").optJSONArray("lists");
-
+        JSONArray list = input.optJSONObject("data").optJSONArray(getArrayKey());
         if (list != null) {
             for (int i = 0; i < list.length(); i++) {
                 JSONObject object = list.optJSONObject(i);
@@ -25,4 +24,9 @@ public abstract class DefaultListConvert implements ListConvert  {
         }
         return result.toList();
     }
+
+    protected String getArrayKey() {
+        return "lists";
+    }
+
 }
