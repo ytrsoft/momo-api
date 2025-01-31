@@ -3,9 +3,9 @@ package com.ytrsoft.core;
 import cn.hutool.core.lang.UUID;
 import org.apache.commons.lang3.StringUtils;
 
-public class Image {
+public class Resource {
 
-    private Image() {
+    private Resource() {
         throw new UnsupportedOperationException();
     }
 
@@ -21,11 +21,18 @@ public class Image {
     }
 
 
-    public static String parse(String str) {
+    public static String image(String str) {
         if (StringUtils.isEmpty(str) || str.length() <= 3) {
             return "";
         }
         return "https://img.momocdn.com/album" + concat(str) + str + "_L.jpg";
+    }
+
+    public static String mp4(String str) {
+        if (StringUtils.isEmpty(str) || str.length() <= 3) {
+            return "";
+        }
+        return "https://video.momocdn.com/feedvideo/" + concat(str) + str + ".mp4";
     }
 
 }

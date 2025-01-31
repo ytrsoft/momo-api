@@ -25,7 +25,7 @@ public abstract class DefaultListConvert implements ListConvert  {
                 }
             }
         }
-        return result.toList();
+        return getList(input).toList();
     }
 
     protected abstract JSONArray getList(JSONObject input);
