@@ -1,6 +1,7 @@
 package com.ytrsoft.parse;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.util.Strings;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
@@ -26,6 +27,9 @@ public class ProfileConvert implements MapConvert {
             addLevelAndVip(profile, result);
             addJobInfo(profile, result);
             addLocation(profile, result);
+            addLiving(profile, result);
+            addWorkplace(profile, result);
+            addCompany(profile, result);
         }
 
         return result.toMap();
@@ -34,7 +38,31 @@ public class ProfileConvert implements MapConvert {
     private void addDeviceInfo(JSONObject profile, JSONObject result) {
         JSONObject deviceInfo = profile.optJSONObject("device_info");
         if (deviceInfo != null) {
-            result.put("device", deviceInfo.optString("device"));
+            String device = deviceInfo.optString("device");
+            if (!Strings.isEmpty(device)) {
+                result.put("device", device);
+            }
+        }
+    }
+
+    private void addLiving(JSONObject profile, JSONObject result) {
+        JSONObject spLiving = profile.optJSONObject("sp_living");
+        if (spLiving != null) {
+            result.put("living", spLiving.optString("name"));
+        }
+    }
+
+    private void addCompany(JSONObject profile, JSONObject result) {
+        JSONObject spCompany = profile.optJSONObject("sp_company");
+        if (spCompany != null) {
+            result.put("company", spCompany.optString("name"));
+        }
+    }
+
+    private void addWorkplace(JSONObject profile, JSONObject result) {
+        JSONObject workplace = profile.optJSONObject("sp_workplace");
+        if (workplace != null) {
+            result.put("workplace", workplace.optString("name"));
         }
     }
 
