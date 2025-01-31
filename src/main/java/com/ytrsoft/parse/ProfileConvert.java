@@ -1,14 +1,10 @@
 package com.ytrsoft.parse;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.util.Strings;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 
 @Component
@@ -16,6 +12,11 @@ public class ProfileConvert implements MapConvert {
 
     @Override
     public Map<String, Object> convert(JSONObject input) {
+        System.out.println(input.toString(2));
+        int code = input.getInt("errcode");
+        if (code != 0) {
+            return new JSONObject().toMap();
+        }
         JSONObject profile = input.optJSONObject("data").optJSONObject("profile");
         JSONObject result = new JSONObject();
         if (profile != null) {

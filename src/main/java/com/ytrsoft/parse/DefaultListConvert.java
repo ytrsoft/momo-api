@@ -12,13 +12,16 @@ public abstract class DefaultListConvert implements ListConvert  {
     @Override
     public List<Object> convert(JSONObject input) {
         JSONArray result = new JSONArray();
-        JSONArray list = getList(input);
-        if (list != null) {
-            for (int i = 0; i < list.length(); i++) {
-                JSONObject object = list.optJSONObject(i);
-                JSONObject item = processItem(object);
-                if (item != null && !item.isEmpty()) {
-                    result.put(item);
+        int code = input.getInt("errcode");
+        if (code == 0) {
+            JSONArray list = getList(input);
+            if (list != null) {
+                for (int i = 0; i < list.length(); i++) {
+                    JSONObject object = list.optJSONObject(i);
+                    JSONObject item = processItem(object);
+                    if (item != null && !item.isEmpty()) {
+                        result.put(item);
+                    }
                 }
             }
         }
