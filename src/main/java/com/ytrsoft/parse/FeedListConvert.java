@@ -5,11 +5,6 @@ import org.json.JSONObject;
 
 public abstract class FeedListConvert extends DefaultListConvert  {
 
-    @Override
-    protected JSONArray getList(JSONObject input) {
-        return input.optJSONObject("data").optJSONArray("feeds");
-    }
-
     protected JSONObject processItem(JSONObject object) {
         if (object == null) return null;
 
