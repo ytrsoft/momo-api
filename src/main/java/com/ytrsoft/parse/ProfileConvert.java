@@ -12,7 +12,6 @@ public class ProfileConvert implements MapConvert {
 
     @Override
     public Map<String, Object> convert(JSONObject input) {
-        System.out.println(input.toString(2));
         int code = input.getInt("errcode");
         if (code != 0) {
             return new JSONObject().toMap();

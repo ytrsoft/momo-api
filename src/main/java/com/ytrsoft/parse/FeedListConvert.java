@@ -12,16 +12,16 @@ public abstract class FeedListConvert extends DefaultListConvert  {
         JSONObject source = object.optJSONObject("source");
         if (source != null) {
             JSONObject map = object.optJSONObject("logmap");
-            item.put("lng", map.optString("lng"));
-            item.put("lat", map.optString("lat"));
-            item.put("id", source.optString("id"));
-            addContentData(source, item);
+            addContentData(map, source, item);
         }
         return item;
     }
 
-    private void addContentData(JSONObject source, JSONObject item) {
+    private void addContentData(JSONObject map, JSONObject source, JSONObject item) {
         if (source.has("contentData")) {
+            item.put("lng", map.optString("lng"));
+            item.put("lat", map.optString("lat"));
+            item.put("id", source.optString("id"));
             JSONObject contentData = source.optJSONObject("contentData");
             if (contentData != null) {
                 item.put("content", contentData.optString("content"));
