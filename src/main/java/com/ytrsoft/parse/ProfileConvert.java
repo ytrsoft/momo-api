@@ -6,6 +6,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 @Component
@@ -14,116 +17,61 @@ public class ProfileConvert implements MapConvert {
     @Override
     public Map<String, Object> convert(JSONObject input) {
         JSONObject profile = input.optJSONObject("data").optJSONObject("profile");
-
         JSONObject result = new JSONObject();
-
         if (profile != null) {
-            addDeviceInfo(profile, result);
-            addSchoolInfo(profile, result);
-            addHometownInfo(profile, result);
+            put(profile, result, "device_info", "device", "device");
+            put(profile, result, "sp_living", "living", "name");
+            put(profile, result, "sp_company", "company", "name");
+            put(profile, result, "sp_workplace", "workplace", "name");
+            put(profile, result, "sp_hometown", "hometown", "name");
+            put(profile, result, "sp_industry", "job", "name");
+            result.put("location", profile.optString("show_location"));
+            result.put("photos", profile.optJSONArray("photos"));
+            result.put("status", profile.optInt("online_status"));
+            result.put("level", profile.optJSONObject("growup").optInt("level"));
+            result.put("vip", profile.optJSONObject("vip").optInt("active_level"));
+            result.put("real", profile.optJSONObject("realAuth").optInt("status"));
             addBasicInfo(profile, result);
-            addPhotos(profile, result);
-            addStatus(profile, result);
-            addLevelAndVip(profile, result);
-            addJobInfo(profile, result);
-            addLocation(profile, result);
-            addLiving(profile, result);
-            addWorkplace(profile, result);
-            addCompany(profile, result);
+            addSchoolInfo(profile, result);
         }
-
         return result.toMap();
     }
 
-    private void addDeviceInfo(JSONObject profile, JSONObject result) {
-        JSONObject deviceInfo = profile.optJSONObject("device_info");
-        if (deviceInfo != null) {
-            String device = deviceInfo.optString("device");
-            if (!Strings.isEmpty(device)) {
-                result.put("device", device);
-            }
-        }
-    }
-
-    private void addLiving(JSONObject profile, JSONObject result) {
-        JSONObject spLiving = profile.optJSONObject("sp_living");
-        if (spLiving != null) {
-            result.put("living", spLiving.optString("name"));
-        }
-    }
-
-    private void addCompany(JSONObject profile, JSONObject result) {
-        JSONObject spCompany = profile.optJSONObject("sp_company");
-        if (spCompany != null) {
-            result.put("company", spCompany.optString("name"));
-        }
-    }
-
-    private void addWorkplace(JSONObject profile, JSONObject result) {
-        JSONObject workplace = profile.optJSONObject("sp_workplace");
-        if (workplace != null) {
-            result.put("workplace", workplace.optString("name"));
-        }
-    }
-
     private void addSchoolInfo(JSONObject profile, JSONObject result) {
-        JSONArray spSchoolArray = profile.optJSONArray("sp_school");
-        if (spSchoolArray != null && !spSchoolArray.isEmpty()) {
-            JSONObject spSchool = spSchoolArray.optJSONObject(0);
-            if (spSchool != null) {
-                result.put("school", spSchool.optString("name"));
+        JSONArray schools = profile.optJSONArray("sp_school");
+        if (schools != null && !schools.isEmpty()) {
+            String[] schoolNames = new String[schools.length()];
+            for (int i = 0; i < schools.length() ; i++) {
+                JSONObject item = schools.optJSONObject(i);
+                schoolNames[i] = item.optString("name");
             }
-        }
-    }
-
-    private void addHometownInfo(JSONObject profile, JSONObject result) {
-        JSONObject spHometown = profile.optJSONObject("sp_hometown");
-        if (spHometown != null) {
-            result.put("hometown", spHometown.optString("name"));
+            result.put("school", String.join(" ", schoolNames));
         }
     }
 
     private void addBasicInfo(JSONObject profile, JSONObject result) {
         result.put("sex", profile.optString("sex").equals("F") ? "女" : "男");
         result.put("name", profile.optString("name"));
-
-        String sign = profile.optString("sign", null);
+        String sign = profile.optString("sign", "");
         if (StringUtils.isNotEmpty(sign)) {
             result.put("sign", sign);
         }
-
-        String height = profile.optString("height", null);
+        String height = profile.optString("height", "");
         if (StringUtils.isNotEmpty(height)) {
             result.put("height", height);
         }
-
         result.put("created", profile.optString("regtime"));
         result.put("id", profile.optString("momoid"));
         result.put("constellation", profile.optString("constellation"));
     }
 
-    private void addPhotos(JSONObject profile, JSONObject result) {
-        result.put("photos", profile.optJSONArray("photos"));
-    }
-
-    private void addStatus(JSONObject profile, JSONObject result) {
-        result.put("status", profile.optInt("online_status"));
-    }
-
-    private void addLevelAndVip(JSONObject profile, JSONObject result) {
-        result.put("level", profile.optJSONObject("growup").optInt("level"));
-        result.put("vip", profile.optJSONObject("vip").optInt("active_level"));
-        result.put("real", profile.optJSONObject("realAuth").optInt("status"));
-    }
-
-    private void addJobInfo(JSONObject profile, JSONObject result) {
-        JSONObject industry = profile.optJSONObject("sp_industry");
-        if (industry != null) {
-            result.put("job", industry.optString("name"));
+    private void put(JSONObject profile, JSONObject result, String pk, String key, String vk) {
+        JSONObject parent = profile.optJSONObject(pk);
+        if (parent != null) {
+            String value = parent.optString(vk);
+            if (StringUtils.isNotEmpty(value)) {
+                result.put(key, value);
+            }
         }
-    }
-
-    private void addLocation(JSONObject profile, JSONObject result) {
-        result.put("location", profile.optString("show_location"));
     }
 }
