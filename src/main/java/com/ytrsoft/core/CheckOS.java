@@ -16,6 +16,7 @@ public class CheckOS {
     private static final String AES_ALGORITHM = "AES/CBC/PKCS7Padding";
     private static final String SHA256_ALGORITHM = "SHA-256";
 
+    private final String ck;
     private final String kv;
     private final String key;
 
@@ -23,6 +24,7 @@ public class CheckOS {
         JSONObject parse = parse();
         this.key = parse.getString("_s");
         this.kv = parse.getString("_h");
+        this.ck = parse.getString("_p");
     }
 
     static {
@@ -61,5 +63,9 @@ public class CheckOS {
 
     public String getKv() {
         return this.kv;
+    }
+
+    public String getCk() {
+        return ck;
     }
 }

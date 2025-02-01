@@ -50,4 +50,8 @@ public class Props {
         return this.checkOS.getKv();
     }
 
+    public String getCk() {
+        return this.checkOS.getCk();
+    }
+
 }
