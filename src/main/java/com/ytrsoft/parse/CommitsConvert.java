@@ -11,33 +11,20 @@ public class CommitsConvert implements ListConvert {
 
     private JSONObject processComment(JSONObject source) {
         JSONObject item = new JSONObject();
-
-        String content = source.optString("content");
-        String id = source.optString("commentid");
-        String feedid = source.optString("feedid");
-        String to = source.optString("toname");
-        int like = source.optInt("like_count");
-
         JSONObject user = source.optJSONObject("user");
         if (user != null) {
-            String sex = "F".equals(user.optString("sex")) ? "女" : "男";
-            String from = user.optString("name");
-            String avatar = user.optString("avatar");
-            String userId = user.optString("momoid");
-            String age = user.optString("age");
+            JsonSet.putSex(user, item);
+            JsonSet.putString(user, item, "age");
+            JsonSet.putString(user, item, "avatar");
+            JsonSet.putString(user, item, "momoid", "userId");
+            JsonSet.putString(user, item, "name", "from");
 
-            item.put("content", content);
-            item.put("id", id);
-            item.put("feedid", feedid);
-            item.put("to", to);
-            item.put("like", like);
-            item.put("userid", userId);
-            item.put("sex", sex);
-            item.put("from", from);
-            item.put("avatar", avatar);
-            item.put("age", age);
+            JsonSet.putInt(source, item, "like_count", "like");
+            JsonSet.putString(source, item, "toname", "to");
+            JsonSet.putString(source, item, "commentid", "id");
+            JsonSet.putString(source, item, "feedid");
+            JsonSet.putString(source, item, "content");
         }
-
         return item;
     }
 

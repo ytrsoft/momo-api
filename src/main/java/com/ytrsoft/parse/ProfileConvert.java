@@ -18,60 +18,41 @@ public class ProfileConvert implements MapConvert {
         }
         JSONObject profile = input.optJSONObject("data").optJSONObject("profile");
         JSONObject result = new JSONObject();
-        if (profile != null) {
-            put(profile, result, "device_info", "device", "device");
-            put(profile, result, "sp_living", "living", "name");
-            put(profile, result, "sp_company", "company", "name");
-            put(profile, result, "sp_workplace", "workplace", "name");
-            put(profile, result, "sp_hometown", "hometown", "name");
-            put(profile, result, "sp_industry", "job", "name");
-            result.put("location", profile.optString("show_location"));
-            result.put("photos", profile.optJSONArray("photos"));
-            result.put("status", profile.optInt("online_status"));
-            result.put("level", profile.optJSONObject("growup").optInt("level"));
-            result.put("vip", profile.optJSONObject("vip").optInt("active_level"));
-            result.put("real", profile.optJSONObject("realAuth").optInt("status"));
-            addBasicInfo(profile, result);
-            addSchoolInfo(profile, result);
-        }
+        JsonSet.putSex(profile, result);
+        JsonSet.putString(profile, result, "name");
+        JsonSet.putString(profile, result, "sign");
+        JsonSet.putString(profile, result, "height");
+        JsonSet.putString(profile, result, "constellation");
+        JsonSet.putString(profile, result, "regtime", "created");
+        JsonSet.putString(profile, result, "momoid", "id");
+        JsonSet.putString(profile, result, "show_location", "location");
+        JsonSet.putArray(profile, result, "photos");
+        JsonSet.putInt(profile, result, "online_status", "status");
+        JsonSet.putInt(profile, result, "growup", "level", "level");
+        JsonSet.putInt(profile, result, "vip", "active_level", "vip");
+        JsonSet.putInt(profile, result, "realAuth", "status", "realAuth");
+        JsonSet.putString(profile, result, "device_info", "device", "device");
+        JsonSet.putString(profile, result, "sp_living", "name", "living");
+        JsonSet.putString(profile, result, "sp_company", "name", "company");
+        JsonSet.putString(profile, result, "sp_workplace", "name", "workplace");
+        JsonSet.putString(profile, result, "sp_hometown", "name", "hometown");
+        JsonSet.putString(profile, result, "sp_industry", "name", "job");
+        setSchool(profile, result);
         return result.toMap();
     }
 
-    private void addSchoolInfo(JSONObject profile, JSONObject result) {
-        JSONArray schools = profile.optJSONArray("sp_school");
-        if (schools != null && !schools.isEmpty()) {
-            String[] schoolNames = new String[schools.length()];
-            for (int i = 0; i < schools.length() ; i++) {
-                JSONObject item = schools.optJSONObject(i);
-                schoolNames[i] = item.optString("name");
-            }
-            result.put("school", String.join(" ", schoolNames));
-        }
-    }
-
-    private void addBasicInfo(JSONObject profile, JSONObject result) {
-        result.put("sex", profile.optString("sex").equals("F") ? "女" : "男");
-        result.put("name", profile.optString("name"));
-        String sign = profile.optString("sign", "");
-        if (StringUtils.isNotEmpty(sign)) {
-            result.put("sign", sign);
-        }
-        String height = profile.optString("height", "");
-        if (StringUtils.isNotEmpty(height)) {
-            result.put("height", height);
-        }
-        result.put("created", profile.optString("regtime"));
-        result.put("id", profile.optString("momoid"));
-        result.put("constellation", profile.optString("constellation"));
-    }
-
-    private void put(JSONObject profile, JSONObject result, String pk, String key, String vk) {
-        JSONObject parent = profile.optJSONObject(pk);
-        if (parent != null) {
-            String value = parent.optString(vk);
-            if (StringUtils.isNotEmpty(value)) {
-                result.put(key, value);
+    private void setSchool(JSONObject profile, JSONObject result) {
+        if (profile != null) {
+            JSONArray schools = profile.optJSONArray("sp_school");
+            if (schools != null && !schools.isEmpty()) {
+                String[] schoolNames = new String[schools.length()];
+                for (int i = 0; i < schools.length() ; i++) {
+                    JSONObject item = schools.optJSONObject(i);
+                    schoolNames[i] = item.optString("name");
+                }
+                result.put("school", String.join(" ", schoolNames));
             }
         }
     }
+
 }

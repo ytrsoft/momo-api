@@ -1,6 +1,5 @@
 package com.ytrsoft.parse;
 
-import org.apache.logging.log4j.util.Strings;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
@@ -9,18 +8,14 @@ import org.springframework.stereotype.Component;
 public class NearlyConvert extends DefaultListConvert {
 
     @Override
-    protected JSONObject processItem(JSONObject jsonObject) {
-        if (jsonObject == null) return null;
-
+    protected JSONObject processItem(JSONObject object) {
         JSONObject item = new JSONObject();
-        JSONObject source = jsonObject.optJSONObject("source");
-
-        if (source == null) return null;
-
-        addBasicInfo(source, item);
-        addOptionalFields(source, item);
-        addAvatar(source, item);
-
+        if (object != null) {
+            JSONObject source = object.optJSONObject("source");
+            if (source != null) {
+                setInfo(source, item);
+            }
+        }
         return item;
     }
 
@@ -29,36 +24,17 @@ public class NearlyConvert extends DefaultListConvert {
         return input.optJSONObject("data").optJSONArray("lists");
     }
 
-    private void addBasicInfo(JSONObject source, JSONObject item) {
-        item.put("age", source.optInt("age"));
-        item.put("id", source.getString("momoid"));
-        item.put("constellation", source.getString("constellation"));
-        item.put("location", source.optString("show_location"));
-        item.put("name", source.optString("name"));
-        item.put("client", source.optString("client"));
-        item.put("status", source.optString("time_fmt_str"));
-        item.put("sex", convertSex(source.optString("sex")));
+    private void setInfo(JSONObject source, JSONObject item) {
+        JsonSet.putSex(source, item);
+        JsonSet.putInt(source, item, "age");
+        JsonSet.putString(source, item, "momoid", "id");
+        JsonSet.putString(source, item, "constellation");
+        JsonSet.putString(source, item, "show_location", "location");
+        JsonSet.putString(source, item, "name");
+        JsonSet.putString(source, item, "client");
+        JsonSet.putString(source, item, "time_fmt_str", "status");
+        JsonSet.putString(source, item, "sign");
+        JsonSet.putArray(source, item, "photos");
     }
 
-    private void addOptionalFields(JSONObject source, JSONObject item) {
-        addFieldIfNotEmpty(source, item);
-    }
-
-    private void addFieldIfNotEmpty(JSONObject source, JSONObject item) {
-        String value = source.optString("sign");
-        if (Strings.isNotEmpty(value)) {
-            item.put("sign", value);
-        }
-    }
-
-    private void addAvatar(JSONObject source, JSONObject item) {
-        JSONArray photos = source.optJSONArray("photos");
-        if (photos != null && !photos.isEmpty()) {
-            item.put("avatar", photos.optString(0));
-        }
-    }
-
-    private String convertSex(String sex) {
-        return "F".equals(sex) ? "女" : "男";
-    }
 }
