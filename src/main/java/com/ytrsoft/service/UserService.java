@@ -19,7 +19,8 @@ public class UserService {
         ApiAccess access = new ApiAccess(ApiAccess.LOGIN, props);
         access.params("account", props.getAccount());
         access.params("etype", "2");
-        access.params("password", "");
+        access.params("bindSource", "bind_source_new_login")
+        access.params("apksign", props.getSign());
         access.body("code_version", "2");
         access.body("map_id", Utilize.getMapId());
         access.body("ck", props.getCk());

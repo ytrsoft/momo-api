@@ -7,12 +7,13 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "momo")
 public class Props {
 
+    private String sign;
     private String ua;
     private String account;
     private String cookie;
     private final CheckOS checkOS;
     private final KeyExchange.ExchangeResult result;
-    private static final boolean isOS = true;
+    private static final boolean isOS = false;
 
     private Props() {
         this.checkOS = new CheckOS();
@@ -65,4 +66,11 @@ public class Props {
         return this.result.getCk();
     }
 
+    public String getSign() {
+        return sign;
+    }
+
+    public void setSign(String sign) {
+        this.sign = sign;
+    }
 }

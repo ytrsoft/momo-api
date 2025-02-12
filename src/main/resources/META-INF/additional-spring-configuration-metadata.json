@@ -64,5 +64,10 @@
       "name": "momo.code_version",
       "type": "java.lang.String",
       "description": "Description for momo.code_version."
+    },
+    {
+      "name": "momo.sign",
+      "type": "java.lang.String",
+      "description": "Description for momo.sign."
     }
   ] }
