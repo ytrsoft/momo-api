@@ -10,12 +10,17 @@ public class Props {
     private String ua;
     private String account;
     private String cookie;
+    private CheckOS checkOS;
+    private final KeyExchange.ExchangeResult result;
+    private static final boolean isOS = false;
 
-    private final CheckOS checkOS;
 
-
-    public Props() {
-        this.checkOS = new CheckOS();
+    private Props() {
+        if (isOS) {
+            this.checkOS = new CheckOS();
+        } else {
+            this.result = KeyExchange.getInstance().execute();
+        }
     }
 
     public String getAccount() {
@@ -43,15 +48,25 @@ public class Props {
     }
 
     public String getKey() {
-        return this.checkOS.getKey();
+        if (isOS) {
+            return this.checkOS.getKey();
+        }
+        return this.result.getKey();
     }
 
     public String getKv() {
-        return this.checkOS.getKv();
+        if (isOS) {
+            return this.checkOS.getKv();
+        }
+        return this.result.getKv();
     }
 
+
     public String getCk() {
-        return this.checkOS.getCk();
+        if (isOS) {
+            return this.checkOS.getCk();
+        }
+        return this.result.getCk();
     }
 
 }
