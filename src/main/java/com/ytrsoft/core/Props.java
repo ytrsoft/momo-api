@@ -10,17 +10,14 @@ public class Props {
     private String ua;
     private String account;
     private String cookie;
-    private CheckOS checkOS;
+    private final CheckOS checkOS;
     private final KeyExchange.ExchangeResult result;
-    private static final boolean isOS = false;
+    private static final boolean isOS = true;
 
 
     private Props() {
-        if (isOS) {
-            this.checkOS = new CheckOS();
-        } else {
-            this.result = KeyExchange.getInstance().execute();
-        }
+        this.checkOS = new CheckOS();
+        this.result = KeyExchange.getInstance().execute();
     }
 
     public String getAccount() {
