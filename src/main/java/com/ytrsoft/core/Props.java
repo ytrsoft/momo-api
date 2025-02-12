@@ -14,7 +14,6 @@ public class Props {
     private final KeyExchange.ExchangeResult result;
     private static final boolean isOS = true;
 
-
     private Props() {
         this.checkOS = new CheckOS();
         this.result = KeyExchange.getInstance().execute();
