@@ -31,9 +31,9 @@ public class KeyExchange {
     }
 
     private static final byte[] SERVER_PUBLIC_KEY = {
-            4, -59, 23, 69, 30, 95, 105, 75, 121, -35, -97, -23, -51, -76, -108, 121, 34, 87,
-            -20, -31, -125, 17, 35, 64, -126, -12, 64, -44, -79, 51, -93, -38, 116, -119, -80,
-            82, 88, 5, 2, -13, 70, 77, 28, -1, -115, 28, 101, -85, -8
+        4, -59, 23, 69, 30, 95, 105, 75, 121, -35, -97, -23, -51, -76, -108, 121, 34, 87,
+        -20, -31, -125, 17, 35, 64, -126, -12, 64, -44, -79, 51, -93, -38, 116, -119, -80,
+        82, 88, 5, 2, -13, 70, 77, 28, -1, -115, 28, 101, -85, -8
     };
 
     private static final Logger logger = LoggerFactory.getLogger(KeyExchange.class);
@@ -124,16 +124,12 @@ public class KeyExchange {
         ExchangeResult result = new ExchangeResult();
         try {
             ECParameterSpec curveParams = getCurveParameters();
-
             KeyPair keyPair = generateKeyPair();
             ECPublicKey publicKey = (ECPublicKey) keyPair.getPublic();
             ECPrivateKey privateKey = (ECPrivateKey) keyPair.getPrivate();
-
             ECPoint serverPublicPoint = curveParams.getCurve().decodePoint(SERVER_PUBLIC_KEY);
-
             ECDHBasicAgreement agreement = initECDH(curveParams, privateKey);
             byte[] sharedSecret = computeSharedSecret(curveParams, agreement, serverPublicPoint);
-
             byte[] encodedPublicKey = publicKey.getQ().getEncoded(false);
             byte[] encodedWithOffset = Coded.encode(encodedPublicKey, OFFSET.getBytes());
             String CK = Base64.encode(encodedWithOffset);

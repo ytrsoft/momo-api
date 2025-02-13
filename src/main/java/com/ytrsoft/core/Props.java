@@ -7,33 +7,16 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "momo")
 public class Props {
 
-    private String sign;
     private String ua;
-    private String account;
-    private String cookie;
-    private final CheckOS checkOS;
-    private final KeyExchange.ExchangeResult result;
-    private static final boolean isOS = false;
+    private String sign;
+    private static boolean locked = false;
+    private KeyExchange.ExchangeResult result = null;
 
     private Props() {
-        this.checkOS = new CheckOS();
-        this.result = KeyExchange.getInstance().execute();
-    }
-
-    public String getAccount() {
-        return account;
-    }
-
-    public void setAccount(String account) {
-        this.account = account;
-    }
-
-    public String getCookie() {
-        return cookie;
-    }
-
-    public void setCookie(String cookie) {
-        this.cookie = cookie;
+        if (!locked) {
+            this.result = KeyExchange.getInstance().execute();
+            locked = true;
+        }
     }
 
     public String getUa() {
@@ -45,24 +28,14 @@ public class Props {
     }
 
     public String getKey() {
-        if (isOS) {
-            return this.checkOS.getKey();
-        }
         return this.result.getKey();
     }
 
     public String getKv() {
-        if (isOS) {
-            return this.checkOS.getKv();
-        }
         return this.result.getKv();
     }
 
-
     public String getCk() {
-        if (isOS) {
-            return this.checkOS.getCk();
-        }
         return this.result.getCk();
     }
 
@@ -73,4 +46,5 @@ public class Props {
     public void setSign(String sign) {
         this.sign = sign;
     }
+
 }

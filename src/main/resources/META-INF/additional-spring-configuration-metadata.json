@@ -1,69 +1,9 @@
 {
   "properties": [
     {
-      "name": "momo.cookie",
+      "name": "momo.id",
       "type": "java.lang.String",
-      "description": "Description for cookie."
-    },
-    {
-      "name": "momo.account",
-      "type": "java.lang.String",
-      "description": "Description for account."
-    },
-    {
-      "name": "momo.kv",
-      "type": "java.lang.String",
-      "description": "Description for kv."
-    },
-    {
-      "name": "momo.uid",
-      "type": "java.lang.String",
-      "description": "Description for uid."
-    },
-    {
-      "name": "momo.iid",
-      "type": "java.lang.String",
-      "description": "Description for iid."
-    },
-    {
-      "name": "momo.key",
-      "type": "java.lang.String",
-      "description": "Description for key."
-    },
-    {
-      "name": "momo.ua",
-      "type": "java.lang.String",
-      "description": "Description for ua."
-    },
-    {
-      "name": "momo.test",
-      "type": "java.lang.String",
-      "description": "Description for momo.test."
-    },
-    {
-      "name": "momo.net",
-      "type": "java.lang.String",
-      "description": "Description for momo.net."
-    },
-    {
-      "name": "momo.ck",
-      "type": "java.lang.String",
-      "description": "Description for momo.ck."
-    },
-    {
-      "name": "momo.login_sk",
-      "type": "java.lang.String",
-      "description": "Description for momo.login_sk."
-    },
-    {
-      "name": "momo.login_ck",
-      "type": "java.lang.String",
-      "description": "Description for momo.login_ck."
-    },
-    {
-      "name": "momo.code_version",
-      "type": "java.lang.String",
-      "description": "Description for momo.code_version."
+      "description": "Description for momo.id."
     },
     {
       "name": "momo.sign",

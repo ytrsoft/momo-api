@@ -1,9 +1,6 @@
 package com.ytrsoft.service;
 
-import com.ytrsoft.core.Base64;
-import com.ytrsoft.core.Coded;
-import com.ytrsoft.core.JSON;
-import com.ytrsoft.core.Props;
+import com.ytrsoft.core.*;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
@@ -12,17 +9,14 @@ import java.util.Map;
 @Service
 public class ParseService {
 
-    private final Props props;
+    private final ApiSecurity security;
 
     public ParseService(Props props) {
-        this.props = props;
+        this.security = new ApiSecurity(props);
     }
 
     public Map<String, Object> unzip(String zip, Integer mode) {
-        byte[] key = props.getKey().getBytes();
-        byte[] data = Base64.decode(zip.getBytes());
-        byte[] decoded = Coded.decode(data, key);
-        String body = new String(decoded);
+        String body = security.decode(zip.getBytes());
         JSONObject jsonObject = new JSONObject(body);
         if (mode == -1) {
             jsonObject = JSON.deep(body);

@@ -15,18 +15,20 @@ public class UserService {
         this.props = props;
     }
 
-    public Map<String, Object> login() {
+    public void login(String account, String password) {
+        Global.ACCOUNT = account;
+        Global.PASSWORD = password;
         ApiAccess access = new ApiAccess(ApiAccess.LOGIN, props);
-        access.params("account", props.getAccount());
+        access.params("account", account);
+        access.params("password", password);
         access.params("etype", "2");
-        access.params("bindSource", "bind_source_new_login");
         access.params("apksign", props.getSign());
+        access.params("uid", "a3931e93ff9cb0bc16e38cf3a14aa599");
         access.body("code_version", "2");
         access.body("map_id", Utilize.getMapId());
         access.body("ck", props.getCk());
         access.body("X-KV", props.getKv());
         JSONObject result = access.doLogin();
-        return result.toMap();
     }
 
 }
