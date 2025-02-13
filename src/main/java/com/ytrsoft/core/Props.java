@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "momo")
 public class Props {
 
+    private String id;
     private String ua;
     private String sign;
     private static boolean locked = false;
@@ -47,4 +48,11 @@ public class Props {
         this.sign = sign;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 }

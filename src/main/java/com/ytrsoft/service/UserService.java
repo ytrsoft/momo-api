@@ -15,20 +15,24 @@ public class UserService {
         this.props = props;
     }
 
-    public void login(String account, String password) {
+    public String login(String account, String password) {
+        System.out.println("Login account " + account + " and password " + password);
         Global.ACCOUNT = account;
         Global.PASSWORD = password;
         ApiAccess access = new ApiAccess(ApiAccess.LOGIN, props);
         access.params("account", account);
-        access.params("password", password);
+        access.params("password", Coded.md5(password));
         access.params("etype", "2");
         access.params("apksign", props.getSign());
-        access.params("uid", "a3931e93ff9cb0bc16e38cf3a14aa599");
+        access.params("uid", props.getId());
         access.body("code_version", "2");
         access.body("map_id", Utilize.getMapId());
         access.body("ck", props.getCk());
         access.body("X-KV", props.getKv());
         JSONObject result = access.doLogin();
+        String session = result.optJSONObject("data").optString("session");
+        Global.SESSION = session;
+        return session;
     }
 
 }

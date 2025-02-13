@@ -21,8 +21,8 @@ public class UserController {
 
     @GetMapping("/login/{account}/{password}")
     public ResponseEntity<String> query(@PathVariable String account, @PathVariable String password) {
-        us.login(account, password);
-        return new ResponseEntity<>(Global.SESSION, HttpStatus.OK);
+        String login = us.login(account, password);
+        return new ResponseEntity<>(login, HttpStatus.OK);
     }
 
 }
