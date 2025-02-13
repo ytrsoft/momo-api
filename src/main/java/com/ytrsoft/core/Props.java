@@ -15,9 +15,13 @@ public class Props {
 
     private Props() {
         if (!locked) {
-            this.result = KeyExchange.getInstance().execute();
+            exchange();
             locked = true;
         }
+    }
+
+    public void exchange() {
+        this.result = KeyExchange.getInstance().execute();
     }
 
     public String getUa() {

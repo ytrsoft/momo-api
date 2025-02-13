@@ -1,6 +1,7 @@
 package com.ytrsoft.service;
 
 import com.ytrsoft.core.*;
+import com.ytrsoft.parse.LoginConvert;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
@@ -10,13 +11,14 @@ import java.util.Map;
 public class UserService {
 
     private final Props props;
+    private final LoginConvert lc;
 
-    public UserService(Props props) {
+    public UserService(Props props, LoginConvert lc) {
         this.props = props;
+        this.lc = lc;
     }
 
-    public String login(String account, String password) {
-        System.out.println("Login account " + account + " and password " + password);
+    public Map<String, Object> login(String account, String password) {
         Global.ACCOUNT = account;
         Global.PASSWORD = password;
         ApiAccess access = new ApiAccess(ApiAccess.LOGIN, props);
@@ -29,10 +31,16 @@ public class UserService {
         access.body("map_id", Utilize.getMapId());
         access.body("ck", props.getCk());
         access.body("X-KV", props.getKv());
-        JSONObject result = access.doLogin();
-        String session = result.optJSONObject("data").optString("session");
-        Global.SESSION = session;
-        return session;
+        JSONObject result;
+        while (true) {
+            result = access.doLogin();
+            if (result != null) {
+                break;
+            } else {
+                props.exchange();
+            }
+        }
+        return lc.convert(result);
     }
 
 }
