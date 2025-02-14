@@ -22,6 +22,7 @@ public class ProfileConvert implements MapConvert {
         JsonSet.putString(profile, result, "name");
         JsonSet.putString(profile, result, "sign");
         JsonSet.putString(profile, result, "height");
+        JsonSet.putString(profile, result, "age");
         JsonSet.putString(profile, result, "constellation");
         JsonSet.putString(profile, result, "regtime", "created");
         JsonSet.putString(profile, result, "momoid", "id");
