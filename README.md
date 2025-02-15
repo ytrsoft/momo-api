@@ -119,3 +119,9 @@ appium --allow-cors --port 4725
 }
 ```
 
+###### 安装uiautomator2
+
+```bash
+appium driver install uiautomator2
+```
+###### Start Session 启动
