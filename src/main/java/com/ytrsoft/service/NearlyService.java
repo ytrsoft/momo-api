@@ -20,11 +20,11 @@ public class NearlyService {
         this.nc = nc;
     }
 
-    public List<Object> query() {
+    public List<Object> query(String lat, String lng) {
         ApiAccess access = new ApiAccess(ApiAccess.NEARLY, props);
         access.params("online_time", "1");
-        access.params("lat", "28.19645");
-        access.params("lng", "112.977301");
+        access.params("lat", lat);
+        access.params("lng", lng);
         access.params("age_min", "18");
         access.params("age_max", "100");
         access.params("sex", "F");

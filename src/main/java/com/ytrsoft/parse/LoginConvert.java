@@ -10,14 +10,14 @@ import java.util.Map;
 public class LoginConvert implements MapConvert {
     @Override
     public Map<String, Object> convert(JSONObject input) {
-        if (!input.has("data")) {
-            return input.toMap();
+        if (input == null) {
+            return new JSONObject().toMap();
         }
         JSONObject result = new JSONObject();
         JSONObject data = input.optJSONObject("data");
         String session = data.optString("session");
         Global.SESSION = session;
         result.put("session", session);
-        return input.toMap();
+        return result.toMap();
     }
 }

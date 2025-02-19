@@ -31,15 +31,7 @@ public class UserService {
         access.body("map_id", Utilize.getMapId());
         access.body("ck", props.getCk());
         access.body("X-KV", props.getKv());
-        JSONObject result;
-        while (true) {
-            result = access.doLogin();
-            if (result != null) {
-                break;
-            } else {
-                props.exchange();
-            }
-        }
+        JSONObject result = access.doLogin();
         return lc.convert(result);
     }
 
