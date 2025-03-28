@@ -10,6 +10,9 @@ public class Props {
     private String id;
     private String ua;
     private String sign;
+    private String usr;
+    private String pwd;
+    private String session;
     private static boolean locked = false;
     private KeyExchange.ExchangeResult result = null;
 
@@ -58,5 +61,29 @@ public class Props {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getUsr() {
+        return usr;
+    }
+
+    public void setUsr(String usr) {
+        this.usr = usr;
+    }
+
+    public String getPwd() {
+        return pwd;
+    }
+
+    public void setPwd(String pwd) {
+        this.pwd = pwd;
+    }
+
+    public String getSession() {
+        return session;
+    }
+
+    public void setSession(String session) {
+        this.session = session;
     }
 }

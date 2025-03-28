@@ -9,5 +9,15 @@
       "name": "momo.sign",
       "type": "java.lang.String",
       "description": "Description for momo.sign."
+    },
+    {
+      "name": "momo.usr",
+      "type": "java.lang.String",
+      "description": "Description for momo.usr."
+    },
+    {
+      "name": "momo.pwd",
+      "type": "java.lang.String",
+      "description": "Description for momo.pwd."
     }
   ] }

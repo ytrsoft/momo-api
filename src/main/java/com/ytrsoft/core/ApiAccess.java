@@ -2,7 +2,6 @@ package com.ytrsoft.core;
 
 import org.json.JSONObject;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,7 +16,12 @@ public class ApiAccess implements Api {
     private final JSONObject params;
 
     public ApiAccess(String url, Props props) {
-        this.url = url + "?fr=" + Global.ACCOUNT;
+        String usr = props.getUsr();
+        if (usr == null) {
+            this.url = url;
+        } else {
+            this.url = url + "?fr=" + props.getUsr();
+        }
         this.props = props;
         this.security = new ApiSecurity(props);
         this.headers = new HashMap<>();
@@ -36,8 +40,9 @@ public class ApiAccess implements Api {
     }
 
     private void setHeaders() {
-        if (Global.SESSION != null) {
-            headers.put("cookie", "SESSIONID=" + Global.SESSION);
+        String session = props.getSession();
+        if (session != null) {
+            headers.put("cookie", "SESSIONID=" + session);
         }
         headers.put("X-SIGN", sign);
         headers.put("X-Span-Id", "0");

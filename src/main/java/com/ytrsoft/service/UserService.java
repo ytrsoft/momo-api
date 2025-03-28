@@ -18,12 +18,11 @@ public class UserService {
         this.lc = lc;
     }
 
-    public Map<String, Object> login(String account, String password) {
-        Global.ACCOUNT = account;
-        Global.PASSWORD = password;
+    public Map<String, Object> login() {
+        String account = props.getUsr();
         ApiAccess access = new ApiAccess(ApiAccess.LOGIN, props);
         access.params("account", account);
-        access.params("password", Coded.md5(password));
+        access.params("password", Coded.md5(props.getPwd()));
         access.params("etype", "2");
         access.params("apksign", props.getSign());
         access.params("uid", props.getId());
