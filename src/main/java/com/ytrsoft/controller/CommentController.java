@@ -1,17 +1,17 @@
 package com.ytrsoft.controller;
 
 import com.ytrsoft.config.Result;
-import com.ytrsoft.entity.Commit;
-import com.ytrsoft.service.CommitService;
+import com.ytrsoft.dto.CommentDTO;
+import com.ytrsoft.service.CommentService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/commit")
-public class CommitController {
+@RequestMapping("/comment")
+public class CommentController {
 
-    private final CommitService cs;
+    private final CommentService cs;
 
-    public CommitController(CommitService cs) {
+    public CommentController(CommentService cs) {
         this.cs = cs;
     }
 
@@ -26,7 +26,7 @@ public class CommitController {
     }
 
     @PostMapping("/publish")
-    public Result publish(@RequestBody Commit commit) {
+    public Result publish(@RequestBody CommentDTO commit) {
         return new Result(cs.publish(commit));
     }
 

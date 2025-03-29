@@ -3,7 +3,7 @@ package com.ytrsoft.http;
 import com.ytrsoft.convert.CommitConvert;
 import org.json.JSONObject;
 
-public interface CommitApi {
+public interface CommentApi {
 
     @Request("/api/feed/v2/comment/publish")
     JSONObject publish(JSONObject params);

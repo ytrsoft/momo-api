@@ -1,17 +1,17 @@
 package com.ytrsoft.service;
 
-import com.ytrsoft.entity.Commit;
-import com.ytrsoft.http.CommitApi;
+import com.ytrsoft.dto.CommentDTO;
+import com.ytrsoft.http.CommentApi;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CommitService {
+public class CommentService {
 
-    private final CommitApi commentApi;
+    private final CommentApi commentApi;
 
-    public CommitService(CommitApi commentApi) {
+    public CommentService(CommentApi commentApi) {
         this.commentApi = commentApi;
     }
 
@@ -24,7 +24,7 @@ public class CommitService {
         return commentApi.list(params);
     }
 
-    public JSONObject publish(Commit commit) {
+    public JSONObject publish(CommentDTO commit) {
         JSONObject params = new JSONObject();
         JSONArray array = new JSONArray();
         params.put("feedid", commit.getId());

@@ -1,6 +1,6 @@
-package com.ytrsoft.entity;
+package com.ytrsoft.dto;
 
-public class Commit {
+public class CommentDTO {
 
     private String id;
     private String src;
