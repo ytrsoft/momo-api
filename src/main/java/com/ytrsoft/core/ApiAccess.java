@@ -5,7 +5,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ApiAccess implements Api {
+public class ApiAccess {
 
     private final String url;
     private String sign;

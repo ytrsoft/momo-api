@@ -23,9 +23,18 @@ public class MomoSetup implements CommandLineRunner {
         this.us = us;
     }
 
+    private JSONObject login() {
+        try {
+            return us.login();
+        } catch (Exception ignored) {
+            props.exchange();
+            return login();
+        }
+    }
+
     @Override
     public void run(String... args) {
-        JSONObject login = us.login();
+        JSONObject login = login();
         String session = login.optString("session");
         props.setSession(session);
         logger.info("登录 = {}", session);
