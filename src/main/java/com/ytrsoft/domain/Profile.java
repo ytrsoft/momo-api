@@ -16,6 +16,8 @@ public class Profile {
 
     private String height;
 
+    private String regtime;
+
     @Alias("user_popular_text")
     private String popular;
 
@@ -33,11 +35,19 @@ public class Profile {
     @Select("sp_school.name")
     private List<String> school = new ArrayList<>();
 
+    @Select("profile_marks.text_list")
+    private List<String> marks = new ArrayList<>();
+
+    @Select("greet_question.question")
+    private List<String> question = new ArrayList<>();
+
     @Select("device_info.device")
     private String device;
 
     @Select("sp_living.name")
     private String living;
+
+    private String phone;
 
     @Select("sp_company.name")
     private String company;
@@ -217,5 +227,37 @@ public class Profile {
 
     public void setPhotos(List<String> photos) {
         this.photos = photos;
+    }
+
+    public List<String> getMarks() {
+        return marks;
+    }
+
+    public void setMarks(List<String> marks) {
+        this.marks = marks;
+    }
+
+    public String getRegtime() {
+        return regtime;
+    }
+
+    public void setRegtime(String regtime) {
+        this.regtime = regtime;
+    }
+
+    public List<String> getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(List<String> question) {
+        this.question = question;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

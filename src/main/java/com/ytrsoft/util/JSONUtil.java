@@ -38,17 +38,21 @@ public final class JSONUtil {
                                if (value instanceof JSONObject) {
                                    json = (JSONObject) value;
                                } else if (value instanceof JSONArray array) {
+                                   boolean state = true;
                                    JSONArray temp = new JSONArray();
                                    for (int i = 0; i < array.length() ; i++) {
                                        Object item = array.get(i);
                                        if (!(item instanceof JSONObject)) {
-                                           result.put(k2, value);
+                                           result.put(k2, array);
+                                           state = false;
                                            break;
                                        }
                                        String pop = parts[parts.length - 1];
                                        temp.put(((JSONObject)item).opt(pop));
                                    }
-                                   result.put(k2, temp);
+                                   if (state) {
+                                       result.put(k2, temp);
+                                   }
                                    break;
                                } else {
                                    result.put(k2, value);
