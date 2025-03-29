@@ -34,11 +34,10 @@ public final class JSONUtil {
                         String[] parts = select.value().split("\\.");
                         for (String part : parts) {
                            if (json.has(part)) {
-                               Object value = json.get(part);
+                               Object value = json.opt(part);
                                if (value instanceof JSONObject) {
                                    json = (JSONObject) value;
-                               } else if (value instanceof JSONArray) {
-                                   JSONArray array = (JSONArray) value;
+                               } else if (value instanceof JSONArray array) {
                                    JSONArray temp = new JSONArray();
                                    for (int i = 0; i < array.length() ; i++) {
                                        Object item = array.get(i);

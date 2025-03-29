@@ -1,6 +1,5 @@
 package com.ytrsoft.convert;
 
-import com.ytrsoft.domain.News;
 import com.ytrsoft.domain.Timeline;
 import com.ytrsoft.util.JSONUtil;
 import org.json.JSONObject;

@@ -1,10 +1,13 @@
 package com.ytrsoft.service;
 
+import com.ytrsoft.domain.Comment;
 import com.ytrsoft.dto.CommentDTO;
 import com.ytrsoft.http.CommentApi;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class CommentService {
@@ -15,7 +18,7 @@ public class CommentService {
         this.commentApi = commentApi;
     }
 
-    public JSONObject list(String id) {
+    public List<Comment> list(String id) {
         JSONObject params = new JSONObject();
         params.put("feedid", id);
         params.put("sort_type", "early");

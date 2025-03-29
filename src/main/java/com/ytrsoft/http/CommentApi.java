@@ -1,7 +1,10 @@
 package com.ytrsoft.http;
 
-import com.ytrsoft.convert.CommitConvert;
+import com.ytrsoft.convert.CommentConvert;
+import com.ytrsoft.domain.Comment;
 import org.json.JSONObject;
+
+import java.util.List;
 
 public interface CommentApi {
 
@@ -12,7 +15,7 @@ public interface CommentApi {
     JSONObject remove(JSONObject params);
 
     @Request("/v2/feed/comment/comments")
-    @Response(CommitConvert.class)
-    JSONObject list(JSONObject params);
+    @Response(CommentConvert.class)
+    List<Comment> list(JSONObject params);
 
 }
