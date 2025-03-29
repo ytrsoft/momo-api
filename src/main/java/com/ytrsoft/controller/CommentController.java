@@ -1,6 +1,7 @@
 package com.ytrsoft.controller;
 
-import com.ytrsoft.config.Result;
+import com.ytrsoft.config.Action;
+import com.ytrsoft.config.Query;
 import com.ytrsoft.domain.Comment;
 import com.ytrsoft.dto.CommentDTO;
 import com.ytrsoft.service.CommentService;
@@ -9,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/comment")
@@ -22,18 +22,18 @@ public class CommentController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<List<Comment>> list(@PathVariable String id) {
-        return new ResponseEntity<>(cs.list(id), HttpStatus.OK);
+    public Query<List<Comment>> list(@PathVariable String id) {
+        return new Query<>(cs.list(id));
     }
 
     @DeleteMapping("/{id}")
-    public Result remove(@PathVariable String id) {
-        return new Result(cs.remove(id));
+    public Action remove(@PathVariable String id) {
+        return new Action(cs.remove(id));
     }
 
     @PostMapping("/publish")
-    public Result publish(@RequestBody CommentDTO commit) {
-        return new Result(cs.publish(commit));
+    public Action publish(@RequestBody CommentDTO commit) {
+        return new Action(cs.publish(commit));
     }
 
 }

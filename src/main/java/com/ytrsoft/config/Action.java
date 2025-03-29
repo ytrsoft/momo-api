@@ -6,9 +6,9 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.Map;
 
-public class Result extends ResponseEntity<Map<String, Object>> {
+public class Action extends ResponseEntity<Map<String, Object>> {
 
-    public Result(JSONObject json) {
+    public Action(JSONObject json) {
         super(json.toMap(), HttpStatus.OK);
     }
 

@@ -11,6 +11,8 @@ public class Comment {
     @Alias("toname")
     private String name;
 
+    private String owner;
+
     @Alias("comment_distance")
     private Integer distance;
 
@@ -144,5 +146,13 @@ public class Comment {
 
     public void setUname(String uname) {
         this.uname = uname;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
     }
 }

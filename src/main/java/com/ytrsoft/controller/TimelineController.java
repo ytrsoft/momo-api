@@ -1,9 +1,8 @@
 package com.ytrsoft.controller;
 
+import com.ytrsoft.config.Query;
 import com.ytrsoft.domain.Timeline;
 import com.ytrsoft.service.TimelineService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,8 +21,8 @@ public class TimelineController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<List<Timeline>> list(@PathVariable String id) {
-        return new ResponseEntity<>(ts.list(id), HttpStatus.OK);
+    public Query<List<Timeline>> list(@PathVariable String id) {
+        return new Query<>(ts.list(id));
     }
 
 }
