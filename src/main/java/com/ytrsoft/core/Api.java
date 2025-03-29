@@ -10,4 +10,5 @@ public interface Api {
     String COMMENTS_PUBLISH = BASE_URL + "/api/feed/v2/comment/publish";
     String COMMENTS_REMOVE = BASE_URL + "/api/feed/v2/comment/remove";
     String LOGIN = BASE_URL + "/api/v2/login";
+    String LOGIN_OUT = BASE_URL + "/api/setting/momologout";
 }

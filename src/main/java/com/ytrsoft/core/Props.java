@@ -13,6 +13,7 @@ public class Props {
     private String usr;
     private String pwd;
     private String session;
+    private String token;
     private static boolean locked = false;
     private KeyExchange.ExchangeResult result = null;
 
@@ -72,7 +73,7 @@ public class Props {
     }
 
     public String getPwd() {
-        return pwd;
+        return Coded.md5(pwd);
     }
 
     public void setPwd(String pwd) {
@@ -85,5 +86,13 @@ public class Props {
 
     public void setSession(String session) {
         this.session = session;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

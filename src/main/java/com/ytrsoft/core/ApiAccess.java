@@ -29,8 +29,28 @@ public class ApiAccess implements Api {
         body = new HashMap<>();
     }
 
-    public ApiAccess params(String key, Object value) {
+    public ApiAccess params(JSONObject params) {
+        Map<String, Object> map = params.toMap();
+        for (Map.Entry<String, Object> entry : map.entrySet()) {
+            String key = entry.getKey();
+            Object value = entry.getValue();
+            this.params.put(key, value);
+        }
+        return this;
+    }
+
+    public ApiAccess params(String key, String value) {
         this.params.put(key, value);
+        return this;
+    }
+
+    public ApiAccess body(JSONObject body) {
+        Map<String, Object> map = body.toMap();
+        for (Map.Entry<String, Object> entry : map.entrySet()) {
+            String key = entry.getKey();
+            String value = (String) entry.getValue();
+            this.body.put(key, value);
+        }
         return this;
     }
 

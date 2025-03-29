@@ -1,29 +1,23 @@
 package com.ytrsoft.service;
 
-import com.ytrsoft.core.ApiAccess;
-import com.ytrsoft.core.Props;
-import com.ytrsoft.parse.ProfileConvert;
+import com.ytrsoft.http.ProfileApi;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
-import java.util.Map;
 
 @Service
 public class ProfileService {
 
-    private final Props props;
-    private final ProfileConvert pc;
+    private final ProfileApi profileApi;
 
-    public ProfileService(Props props, ProfileConvert pc) {
-        this.props = props;
-        this.pc = pc;
+    public ProfileService(ProfileApi profileApi) {
+        this.profileApi = profileApi;
     }
 
-    public Map<String, Object> query(String id) {
-        ApiAccess access = new ApiAccess(ApiAccess.PROFILE, props);
-        access.params("remoteid", id);
-        JSONObject response = access.doRequest();
-        return pc.convert(response);
+    public JSONObject query(String id) {
+        JSONObject params = new JSONObject();
+        params.put("remoteid", id);
+        return profileApi.list(params);
     }
 
 }

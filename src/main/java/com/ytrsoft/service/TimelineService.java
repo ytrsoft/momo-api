@@ -1,30 +1,22 @@
 package com.ytrsoft.service;
 
-import com.ytrsoft.core.ApiAccess;
-import com.ytrsoft.core.Props;
-import com.ytrsoft.parse.NewsConvert;
-import com.ytrsoft.parse.TimelineConvert;
+import com.ytrsoft.http.TimelineApi;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class TimelineService {
 
-    private final Props props;
-    private final TimelineConvert ts;
+    private final TimelineApi timelineApi;
 
-    public TimelineService(Props props, TimelineConvert ts) {
-        this.props = props;
-        this.ts = ts;
+    public TimelineService(TimelineApi timelineApi) {
+        this.timelineApi = timelineApi;
     }
 
-    public List<Object> query(String id) {
-        ApiAccess access = new ApiAccess(ApiAccess.TIMELINE, props);
-        access.params("remoteid", id);
-        JSONObject response = access.doRequest();
-        return ts.convert(response);
+    public JSONObject list(String id) {
+        JSONObject params = new JSONObject();
+        params.put("remoteid", id);
+        return timelineApi.list(params);
     }
 
 }
