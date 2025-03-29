@@ -5,8 +5,6 @@ import com.ytrsoft.config.Query;
 import com.ytrsoft.domain.Comment;
 import com.ytrsoft.dto.CommentDTO;
 import com.ytrsoft.service.CommentService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

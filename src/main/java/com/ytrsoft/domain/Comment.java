@@ -6,6 +6,9 @@ import java.util.List;
 public class Comment {
 
     @Alias("feedid")
+    private String fid;
+
+    @Alias("commentid")
     private String id;
 
     @Alias("toname")
@@ -154,5 +157,13 @@ public class Comment {
 
     public void setOwner(String owner) {
         this.owner = owner;
+    }
+
+    public String getFid() {
+        return fid;
+    }
+
+    public void setFid(String fid) {
+        this.fid = fid;
     }
 }
