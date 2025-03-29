@@ -45,7 +45,7 @@ public class ApiRegister {
 
     @Bean
     public ProxyFactoryBean commentApi() {
-        return createProxyBean(CommentApi.class);
+        return createProxyBean(CommitApi.class);
     }
 
     @Bean

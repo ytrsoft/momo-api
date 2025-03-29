@@ -2,10 +2,10 @@ package com.ytrsoft.convert;
 
 import org.json.JSONObject;
 
-public class NearlyConvert extends ListConvert {
+public class CommitConvert extends AbsConvert {
 
     @Override
-    protected JSONObject item(JSONObject input) {
+    protected JSONObject next(JSONObject input) {
         return input;
     }
 }

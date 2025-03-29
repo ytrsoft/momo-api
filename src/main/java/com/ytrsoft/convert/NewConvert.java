@@ -2,7 +2,7 @@ package com.ytrsoft.convert;
 
 import org.json.JSONObject;
 
-public class NearlyConvert extends ListConvert {
+public class NewConvert extends ListConvert {
 
     @Override
     protected JSONObject item(JSONObject input) {

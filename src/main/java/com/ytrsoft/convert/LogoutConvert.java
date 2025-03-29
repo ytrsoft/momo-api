@@ -1,9 +1,7 @@
 package com.ytrsoft.convert;
 
 import org.json.JSONObject;
-import org.springframework.stereotype.Component;
 
-@Component
 public class LogoutConvert implements IConvert {
 
     @Override

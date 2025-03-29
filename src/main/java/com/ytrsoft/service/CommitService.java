@@ -1,7 +1,7 @@
 package com.ytrsoft.service;
 
 import com.ytrsoft.entity.Commit;
-import com.ytrsoft.http.CommentApi;
+import com.ytrsoft.http.CommitApi;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class CommitService {
 
-    private final CommentApi commentApi;
+    private final CommitApi commentApi;
 
-    public CommitService(CommentApi commentApi) {
+    public CommitService(CommitApi commentApi) {
         this.commentApi = commentApi;
     }
 
