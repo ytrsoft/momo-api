@@ -3,6 +3,7 @@ package com.ytrsoft.util;
 import com.alibaba.fastjson2.JSON;
 import com.ytrsoft.domain.Alias;
 import com.ytrsoft.domain.Select;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.lang.reflect.Field;
@@ -27,17 +28,28 @@ public final class JSONUtil {
                     }
                 }
                 if (field.isAnnotationPresent(Select.class)) {
-                    Select path = field.getAnnotation(Select.class);
-                    if (path != null) {
+                    Select select = field.getAnnotation(Select.class);
+                    if (select != null) {
                         JSONObject json = input;
-                        String[] parts = path.value().split("\\.");
-                        for (int i = 0; i < parts.length - 1 ; i++) {
-                            if (json.has(parts[i])) {
-                                json = json.getJSONObject(parts[i]);
+                        String[] parts = select.value().split("\\.");
+                        for (String part : parts) {
+                            Object value = json.get(part);
+                            String typeOf = value.getClass().getSimpleName();
+                            if (typeOf.equals("JSONObject")) {
+                                json = (JSONObject) value;
+                            } else if (typeOf.equals("JSONArray")) {
+                                JSONArray jsonArray = (JSONArray) value;
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    String pop = parts[parts.length - 1];
+                                    System.out.println(pop);
+                                    jsonArray.put(i, jsonArray.getJSONObject(i).opt(pop));
+                                }
+                                result.put(k2, jsonArray);
+                                break;
+                            } else {
+                                result.put(k2, value);
+                                break;
                             }
-                        }
-                        if (json.has(parts[parts.length - 1])) {
-                            result.put(k2, json.opt(parts[parts.length - 1]));
                         }
                     }
                 } else {

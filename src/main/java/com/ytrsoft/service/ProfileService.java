@@ -1,5 +1,6 @@
 package com.ytrsoft.service;
 
+import com.ytrsoft.domain.Profile;
 import com.ytrsoft.http.ProfileApi;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
@@ -14,10 +15,10 @@ public class ProfileService {
         this.profileApi = profileApi;
     }
 
-    public JSONObject query(String id) {
+    public Profile query(String id) {
         JSONObject params = new JSONObject();
         params.put("remoteid", id);
-        return profileApi.list(params);
+        return profileApi.query(params);
     }
 
 }
