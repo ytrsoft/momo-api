@@ -1,8 +1,11 @@
 package com.ytrsoft.service;
 
+import com.ytrsoft.domain.Nearly;
 import com.ytrsoft.http.NearlyApi;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class NearlyService {
@@ -13,7 +16,7 @@ public class NearlyService {
         this.nearlyApi = nearlyApi;
     }
 
-    public JSONObject list(String exp) {
+    public List<Nearly> list(String exp) {
         String[] values = exp.split(",");
         String lat = values[1];
         String lng = values[0];

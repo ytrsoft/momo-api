@@ -2,14 +2,11 @@ package com.ytrsoft.convert;
 
 import org.json.JSONObject;
 
-public class LogoutConvert implements IConvert {
+public class LogoutConvert implements Convert<String> {
 
     @Override
-    public JSONObject convert(JSONObject input) {
-        JSONObject result = new JSONObject();
+    public String convert(JSONObject input) {
         JSONObject token = input.optJSONObject("l_token");
-        String value = token.optString("value");
-        result.put("token", value);
-        return result;
+        return token.optString("value");
     }
 }

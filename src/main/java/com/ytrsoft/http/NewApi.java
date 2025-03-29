@@ -1,12 +1,15 @@
 package com.ytrsoft.http;
 
 import com.ytrsoft.convert.NewConvert;
+import com.ytrsoft.domain.News;
 import org.json.JSONObject;
+
+import java.util.List;
 
 public interface NewApi {
 
     @Request("/v2/feed/nearbyv2/lists")
     @Response(NewConvert.class)
-    JSONObject list(JSONObject params);
+    List<News> list(JSONObject params);
 
 }

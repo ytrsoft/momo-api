@@ -2,14 +2,12 @@ package com.ytrsoft.convert;
 
 import org.json.JSONObject;
 
-public class LoginConvert implements IConvert {
+public class LoginConvert implements Convert<String> {
 
     @Override
-    public JSONObject convert(JSONObject input) {
-        JSONObject result = new JSONObject();
+    public String convert(JSONObject input) {
         JSONObject data = input.optJSONObject("data");
-        String session = data.optString("session");
-        result.put("session", session);
-        return result;
+        return data.optString("session");
     }
+
 }

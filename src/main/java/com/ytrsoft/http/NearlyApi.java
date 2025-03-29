@@ -1,12 +1,15 @@
 package com.ytrsoft.http;
 
 import com.ytrsoft.convert.NearlyConvert;
+import com.ytrsoft.domain.Nearly;
 import org.json.JSONObject;
+
+import java.util.List;
 
 public interface NearlyApi {
 
     @Request("/v2/nearby/people/lists")
     @Response(NearlyConvert.class)
-    JSONObject list(JSONObject params);
+    List<Nearly> list(JSONObject params);
 
 }

@@ -3,22 +3,21 @@ package com.ytrsoft.convert;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public abstract class ListConvert extends AbsConvert {
+import java.util.ArrayList;
+import java.util.List;
+
+public abstract class ListConvert<T> extends AbsConvert<List<T>> {
 
     @Override
-    protected JSONObject next(JSONObject input) {
-        JSONObject result = new JSONObject();
+    protected List<T> next(JSONObject input) {
+        List<T> result = new ArrayList<>();
         JSONArray lists = input.optJSONArray("lists");
-        JSONArray saved = new JSONArray();
         for (int i = 0; i < lists.length() ; i++) {
-            JSONObject it = item(lists.optJSONObject(i));
-            saved.put(it);
+            result.add(item(lists.getJSONObject(i)));
         }
-        result.put("list", saved);
         return result;
     }
 
-
-    protected abstract JSONObject item(JSONObject input);
+    protected abstract T item(JSONObject input);
 
 }

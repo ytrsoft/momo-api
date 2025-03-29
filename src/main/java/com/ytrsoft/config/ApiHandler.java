@@ -1,6 +1,6 @@
 package com.ytrsoft.config;
 
-import com.ytrsoft.convert.IConvert;
+import com.ytrsoft.convert.Convert;
 import com.ytrsoft.core.ApiAccess;
 import com.ytrsoft.core.Props;
 import com.ytrsoft.http.Response;
@@ -24,6 +24,7 @@ public class ApiHandler implements MethodInterceptor {
 
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {
+
         Method method = invocation.getMethod();
         Request request = method.getAnnotation(Request.class);
 
@@ -52,9 +53,9 @@ public class ApiHandler implements MethodInterceptor {
 
         Response convert = method.getAnnotation(Response.class);
         if (convert != null) {
-            Class<? extends IConvert> target = convert.value();
-            IConvert converter = target.getDeclaredConstructor().newInstance();
-            result = converter.convert(result);
+            Class<?> target = convert.value();
+            Convert<?> converter = (Convert<?>) target.getDeclaredConstructor().newInstance();
+            return converter.convert(result);
         }
 
         return result;

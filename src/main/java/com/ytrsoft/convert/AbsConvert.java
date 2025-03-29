@@ -2,17 +2,15 @@ package com.ytrsoft.convert;
 
 import org.json.JSONObject;
 
-public abstract class AbsConvert implements IConvert {
+public abstract class AbsConvert<T> implements Convert<T> {
 
     @Override
-    public JSONObject convert(JSONObject input) {
+    public T convert(JSONObject input) {
         int code = input.optInt("errcode");
-        if (code != 0) {
-            return new JSONObject();
-        }
-        JSONObject data = input.optJSONObject("data");
-        return next(data);
+        if (code != 0) return null;
+        return next(input.optJSONObject("data"));
     }
 
-    protected abstract JSONObject next(JSONObject input);
+    protected abstract T next(JSONObject input);
+
 }

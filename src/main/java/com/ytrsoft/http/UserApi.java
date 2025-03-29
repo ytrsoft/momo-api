@@ -8,10 +8,10 @@ public interface UserApi {
 
     @Request("/api/v2/login")
     @Response(LoginConvert.class)
-    JSONObject login(JSONObject params, JSONObject body);
+    String login(JSONObject params, JSONObject body);
 
     @Request("/api/setting/momologout")
     @Response(LogoutConvert.class)
-    JSONObject logout(JSONObject params);
+    String logout(JSONObject params);
 
 }

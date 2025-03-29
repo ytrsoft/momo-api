@@ -23,7 +23,7 @@ public class MomoSetup implements CommandLineRunner {
         this.us = us;
     }
 
-    private JSONObject login() {
+    private String login() {
         try {
             return us.login();
         } catch (Exception ignored) {
@@ -34,16 +34,14 @@ public class MomoSetup implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        JSONObject login = login();
-        String session = login.optString("session");
+        String session = login();
         props.setSession(session);
         logger.info("登录 = {}", session);
     }
 
     @EventListener(ContextClosedEvent.class)
     public void onDestroy() {
-        JSONObject logout = us.logout();
-        String token = logout.optString("token");
+        String token = us.logout();
         props.setToken(token);
         logger.info("登出 = {}", token);
     }

@@ -1,11 +1,16 @@
 package com.ytrsoft.convert;
 
+import com.ytrsoft.domain.Nearly;
+
+import com.ytrsoft.util.JSONUtil;
 import org.json.JSONObject;
 
-public class NearlyConvert extends ListConvert {
+public class NearlyConvert extends ListConvert<Nearly> {
 
     @Override
-    protected JSONObject item(JSONObject input) {
-        return input;
+    protected Nearly item(JSONObject input) {
+        JSONObject source = input.optJSONObject("source");
+        return JSONUtil.parseObject(Nearly.class, source);
     }
+
 }

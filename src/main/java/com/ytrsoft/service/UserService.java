@@ -18,7 +18,7 @@ public class UserService {
         this.userApi = userApi;
     }
 
-    public JSONObject login() {
+    public String login() {
         JSONObject params = new JSONObject();
         params.put("account", props.getUsr());
         params.put("password", props.getPwd());
@@ -33,7 +33,7 @@ public class UserService {
         return userApi.login(params, body);
     }
 
-    public JSONObject logout() {
+    public String logout() {
         JSONObject params = new JSONObject();
         params.put("source", "1");
         return userApi.logout(params);
