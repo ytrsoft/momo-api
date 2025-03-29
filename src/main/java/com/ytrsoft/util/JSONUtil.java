@@ -33,23 +33,29 @@ public final class JSONUtil {
                         JSONObject json = input;
                         String[] parts = select.value().split("\\.");
                         for (String part : parts) {
-                            Object value = json.get(part);
-                            String typeOf = value.getClass().getSimpleName();
-                            if (typeOf.equals("JSONObject")) {
-                                json = (JSONObject) value;
-                            } else if (typeOf.equals("JSONArray")) {
-                                JSONArray jsonArray = (JSONArray) value;
-                                for (int i = 0; i < jsonArray.length(); i++) {
-                                    String pop = parts[parts.length - 1];
-                                    System.out.println(pop);
-                                    jsonArray.put(i, jsonArray.getJSONObject(i).opt(pop));
-                                }
-                                result.put(k2, jsonArray);
-                                break;
-                            } else {
-                                result.put(k2, value);
-                                break;
-                            }
+                           if (json.has(part)) {
+                               Object value = json.get(part);
+                               if (value instanceof JSONObject) {
+                                   json = (JSONObject) value;
+                               } else if (value instanceof JSONArray) {
+                                   JSONArray array = (JSONArray) value;
+                                   JSONArray temp = new JSONArray();
+                                   for (int i = 0; i < array.length() ; i++) {
+                                       Object item = array.get(i);
+                                       if (!(item instanceof JSONObject)) {
+                                           result.put(k2, value);
+                                           break;
+                                       }
+                                       String pop = parts[parts.length - 1];
+                                       temp.put(((JSONObject)item).opt(pop));
+                                   }
+                                   result.put(k2, temp);
+                                   break;
+                               } else {
+                                   result.put(k2, value);
+                                   break;
+                               }
+                           }
                         }
                     }
                 } else {

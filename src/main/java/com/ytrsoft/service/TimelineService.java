@@ -1,8 +1,11 @@
 package com.ytrsoft.service;
 
+import com.ytrsoft.domain.Timeline;
 import com.ytrsoft.http.TimelineApi;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class TimelineService {
@@ -13,7 +16,7 @@ public class TimelineService {
         this.timelineApi = timelineApi;
     }
 
-    public JSONObject list(String id) {
+    public List<Timeline> list(String id) {
         JSONObject params = new JSONObject();
         params.put("remoteid", id);
         return timelineApi.list(params);
