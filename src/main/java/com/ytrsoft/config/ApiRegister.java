@@ -16,16 +16,16 @@ public class ApiRegister {
         this.props = props;
     }
 
+    @Bean
+    public ApiHandler apiInvocationHandler() {
+        return new ApiHandler(props);
+    }
+
     public ProxyFactoryBean createProxyBean(@Nullable Class<?> targetClass) {
         ProxyFactoryBean proxyFactoryBean = new ProxyFactoryBean();
         proxyFactoryBean.setTargetClass(targetClass);
         proxyFactoryBean.setInterceptorNames("apiInvocationHandler");
         return proxyFactoryBean;
-    }
-
-    @Bean
-    public ApiHandler apiInvocationHandler() {
-        return new ApiHandler(props);
     }
 
     @Bean
