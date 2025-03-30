@@ -6,6 +6,7 @@ import org.json.JSONObject;
 
 import java.util.List;
 
+@Api
 public interface CommentApi {
 
     @Request("/api/feed/v2/comment/publish")

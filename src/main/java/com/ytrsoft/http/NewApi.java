@@ -6,6 +6,7 @@ import org.json.JSONObject;
 
 import java.util.List;
 
+@Api
 public interface NewApi {
 
     @Request("/v2/feed/nearbyv2/lists")

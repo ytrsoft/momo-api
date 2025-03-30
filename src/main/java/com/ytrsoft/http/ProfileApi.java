@@ -4,6 +4,7 @@ import com.ytrsoft.convert.ProfileConvert;
 import com.ytrsoft.domain.Profile;
 import org.json.JSONObject;
 
+@Api
 public interface ProfileApi {
 
     @Request("/v3/user/profile/info")

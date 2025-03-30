@@ -6,6 +6,7 @@ import org.json.JSONObject;
 
 import java.util.List;
 
+@Api
 public interface TimelineApi {
 
     @Request("/v1/feed/user/timeline")

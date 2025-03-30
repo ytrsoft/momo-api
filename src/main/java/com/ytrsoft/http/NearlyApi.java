@@ -6,6 +6,7 @@ import org.json.JSONObject;
 
 import java.util.List;
 
+@Api
 public interface NearlyApi {
 
     @Request("/v2/nearby/people/lists")
