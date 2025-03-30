@@ -2,7 +2,6 @@ package com.ytrsoft.config;
 
 import com.ytrsoft.core.Props;
 import com.ytrsoft.service.UserService;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -13,6 +12,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class MomoSetup implements CommandLineRunner {
 
+    private int count = 0;
     private final Props props;
     private final UserService us;
 
@@ -27,6 +27,7 @@ public class MomoSetup implements CommandLineRunner {
         try {
             return us.login();
         } catch (Exception ignored) {
+            logger.info("重试第{}次", ++count);
             props.exchange();
             return login();
         }

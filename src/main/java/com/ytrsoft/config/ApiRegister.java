@@ -57,4 +57,9 @@ public class ApiRegister {
     public ProxyFactoryBean newApi() {
         return createProxyBean(NewApi.class);
     }
+
+    @Bean
+    public ProxyFactoryBean followApi() {
+        return createProxyBean(FollowApi.class);
+    }
 }

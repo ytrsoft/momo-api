@@ -24,7 +24,7 @@ public class CommentController {
         return new Query<>(cs.list(id));
     }
 
-    @DeleteMapping("/{id}")
+    @GetMapping("/remove/{id}")
     public Action remove(@PathVariable String id) {
         return new Action(cs.remove(id));
     }

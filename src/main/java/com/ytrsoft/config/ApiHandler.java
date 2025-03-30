@@ -34,18 +34,27 @@ public class ApiHandler implements MethodInterceptor {
 
         String url = BASE_URL + request.value();
         Object[] args = invocation.getArguments();
+
+        boolean hasLogin = method.getName().equals("login");
+        boolean rest = args.length > 0 && args[0] instanceof String && !hasLogin;
+
+        if (rest) {
+            url = url + "/" + args[0];
+        }
+
         ApiAccess access = new ApiAccess(url, props);
 
-        if (args.length > 0) {
+        if (!rest) {
             access.params((JSONObject) args[0]);
-        }
-        if (args.length > 1) {
-            access.body((JSONObject) args[1]);
+            if (args.length > 1) {
+                access.body((JSONObject) args[1]);
+            }
+
         }
 
         JSONObject result;
 
-        if (method.getName().equals("login")) {
+        if (hasLogin) {
             result = access.doLogin();
         } else {
             result = access.doRequest();
