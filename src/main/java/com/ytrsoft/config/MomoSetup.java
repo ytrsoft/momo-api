@@ -23,19 +23,9 @@ public class MomoSetup implements CommandLineRunner {
         this.us = us;
     }
 
-    private String login() {
-        try {
-            return us.login();
-        } catch (Exception ignored) {
-            logger.info("重试第{}次", ++count);
-            props.exchange();
-            return login();
-        }
-    }
-
     @Override
     public void run(String... args) {
-        String session = login();
+        String session = us.login();
         props.setSession(session);
         logger.info("登录 = {}", session);
     }

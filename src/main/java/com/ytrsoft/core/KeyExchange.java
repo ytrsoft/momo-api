@@ -19,6 +19,7 @@ import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.Security;
 import java.security.spec.ECGenParameterSpec;
+import java.util.Arrays;
 
 public class KeyExchange {
 
@@ -117,7 +118,8 @@ public class KeyExchange {
                 curveParams.getH()
             )
         ));
-        return sharedSecret.toByteArray();
+        byte[] result = sharedSecret.toByteArray();
+        return (result[0] == 0) ? Arrays.copyOfRange(result, 1, result.length) : result;
     }
 
     public ExchangeResult execute() {

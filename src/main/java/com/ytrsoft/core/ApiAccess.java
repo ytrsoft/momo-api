@@ -1,7 +1,10 @@
 package com.ytrsoft.core;
 
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,6 +17,8 @@ public class ApiAccess {
     private final Map<String, String> headers;
     private final Map<String, String> body;
     private final JSONObject params;
+
+    private static final Logger logger = LoggerFactory.getLogger(ApiAccess.class);
 
     public ApiAccess(String url, Props props) {
         String usr = props.getUsr();
@@ -101,15 +106,14 @@ public class ApiAccess {
     }
 
     public JSONObject doLogin() {
-        byte[] bytes;
         byte[] key = props.getKey().getBytes();
         byte[] response = readBody();
-        if (!(response[0] == 2 && response[1] == 3)) {
-            return null;
+        if (response[0] == 2 && response[1] == 3) {
+            byte[] bytes = Coded.decode(response, key);
+            String body = Brotli.decompress(bytes);
+            return JSON.deep(body);
         }
-        bytes = Coded.decode(response, key);
-        String body = GZIP.decompress(bytes);
-        return JSON.deep(body);
+        return JSON.deep(new String(response));
     }
 
 }
