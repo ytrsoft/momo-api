@@ -12,8 +12,8 @@ import lombok.Getter;
  *
  * <pre>{@code
  * MomoConfig config = MomoConfig.builder()
- *     .username("13800000000")
- *     .password("plain-password")
+ *     .username("979025201")
+ *     .password("momo88888888")
  *     .build();
  *
  * MomoClient client = new MomoClient(config);
